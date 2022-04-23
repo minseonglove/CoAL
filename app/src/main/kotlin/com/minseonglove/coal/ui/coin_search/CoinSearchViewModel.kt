@@ -1,4 +1,6 @@
 package com.minseonglove.coal.ui.coin_search
 
-class CoinSearchViewModel {
+import androidx.lifecycle.ViewModel
+
+class CoinSearchViewModel : ViewModel() {
 }

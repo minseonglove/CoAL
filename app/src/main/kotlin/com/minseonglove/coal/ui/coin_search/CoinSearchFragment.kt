@@ -1,4 +1,6 @@
 package com.minseonglove.coal.ui.coin_search
 
-class CoinSearchFragment {
+import androidx.fragment.app.Fragment
+
+class CoinSearchFragment : Fragment() {
 }

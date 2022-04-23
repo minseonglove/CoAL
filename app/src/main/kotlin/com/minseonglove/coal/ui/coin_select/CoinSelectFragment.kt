@@ -1,4 +1,6 @@
 package com.minseonglove.coal.ui.coin_select
 
-class CoinSelectFragment {
+import androidx.fragment.app.Fragment
+
+class CoinSelectFragment : Fragment() {
 }

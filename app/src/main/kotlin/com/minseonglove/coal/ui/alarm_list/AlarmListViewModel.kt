@@ -1,4 +1,6 @@
 package com.minseonglove.coal.ui.alarm_list
 
-class AlarmListViewModel {
+import androidx.lifecycle.ViewModel
+
+class AlarmListViewModel : ViewModel() {
 }

@@ -1,4 +1,6 @@
 package com.minseonglove.coal.ui.alarm_list
 
-class AlarmListFragment {
+import androidx.fragment.app.Fragment
+
+class AlarmListFragment : Fragment() {
 }
