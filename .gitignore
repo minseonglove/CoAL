@@ -312,4 +312,7 @@ obj/
 
 !/gradle/wrapper/gradle-wrapper.jar
 
+# request api address
+app/src/main/kotlin/com/minseonglove/coal/api/data/Constants.kt
+
 # End of https://www.toptal.com/developers/gitignore/api/windows,kotlin,android,androidstudio,intellij
