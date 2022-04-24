@@ -14,15 +14,26 @@
         android:background="@drawable/alarm_list_background">
 
         <include
-            layout="@layout/toolbar"
-            android:id="@+id/include_alarmlist_toolbar"
+            android:id="@+id/toolbar_alarmlist"
+            layout="@layout/include_toolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:buttonIcon="@{@drawable/icon_search}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:titleText="@{@string/alarmlist_toolbar_title}"
-            app:icon="@{@drawable/icon_search}"/>
+            app:titleText="@{@string/alarmlist_toolbar_title}" />
+
+        <include
+            android:id="@+id/bottom_button_alarmsetting"
+            layout="@layout/include_bottom_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            app:buttonIcon="@{@drawable/icon_add}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

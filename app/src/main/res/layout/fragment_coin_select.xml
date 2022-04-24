@@ -8,11 +8,11 @@
         android:background="@drawable/coin_select_background">
 
         <include
-            android:id="@+id/include_coinselect_toolbar"
-            layout="@layout/toolbar"
+            android:id="@+id/toolbar_coinselect"
+            layout="@layout/include_toolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:icon="@{@drawable/icon_right}"
+            app:buttonIcon="@{@drawable/icon_right}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

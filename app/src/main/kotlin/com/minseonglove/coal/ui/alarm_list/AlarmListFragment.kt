@@ -5,6 +5,7 @@ import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -38,5 +39,12 @@ class AlarmListFragment : Fragment() {
         }
         Logger.addLogAdapter(AndroidLogAdapter())
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.toolbarAlarmlist.buttonToolbarNavigation.setOnClickListener {
+            Toast.makeText(requireContext(), "asdf", Toast.LENGTH_SHORT).show()
+        }
     }
 }

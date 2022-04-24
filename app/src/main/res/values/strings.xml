@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">CoAL</string>
     <!-- Strings related to toolbar-->
-    <string name="toolbar_button_content_description">navigation_button</string>
+    <string name="toolbar_button_content_description">navigation button</string>
+    <!-- Strings related to bottom_button-->
+    <string name="bottom_button_content_description">bottom action button</string>
     <!-- Strings related to alarmList -->
     <string name="alarmlist_toolbar_title">알람 리스트</string>
     <!-- Strings related to alarmSetting -->

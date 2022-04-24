@@ -13,15 +13,26 @@
         android:background="@drawable/coin_search_background">
 
         <include
-            android:id="@+id/include_coinsearch_toolbar"
-            layout="@layout/toolbar"
+            android:id="@+id/toolbar_coinsearch"
+            layout="@layout/include_toolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:icon="@{@drawable/icon_right}"
+            app:buttonIcon="@{@drawable/icon_right}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:titleText="@{@string/coinsearch_toolbar_title}" />
+
+        <include
+            android:id="@+id/bottom_button_alarmsetting"
+            layout="@layout/include_bottom_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            app:buttonIcon="@{@drawable/icon_search}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

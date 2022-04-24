@@ -6,10 +6,9 @@
             name="titleText"
             type="String"/>
         <variable
-            name="icon"
+            name="buttonIcon"
             type="android.graphics.drawable.Drawable" />
     </data>
-    <merge>
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,10 +31,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:background="@color/transparent"
-                android:src="@{icon}"
+                android:src="@{buttonIcon}"
                 tools:src="@drawable/icon_right"
                 android:contentDescription="@string/toolbar_button_content_description" />
 
         </androidx.appcompat.widget.Toolbar>
-    </merge>
 </layout>
