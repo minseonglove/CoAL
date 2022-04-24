@@ -15,12 +15,14 @@
 
         <include
             layout="@layout/toolbar"
+            android:id="@+id/include_alarmlist_toolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:titleText="@{@string/alarmlist_toolbar_title}"
-            app:icon="@{@drawable/icon_right}"/>
+            app:icon="@{@drawable/icon_search}"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

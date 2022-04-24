@@ -5,6 +5,9 @@
     <!-- Strings related to alarmList -->
     <string name="alarmlist_toolbar_title">알람 리스트</string>
     <!-- Strings related to alarmSetting -->
+    <string name="alarmsetting_toolbar_title">알람 생성</string>
     <!-- Strings related to coinSelect -->
+    <string name="coinselect_toolbar_title">종목 검색</string>
     <!-- Strings related to coinSearch -->
+    <string name="coinsearch_toolbar_title">조건 검색</string>
 </resources>
