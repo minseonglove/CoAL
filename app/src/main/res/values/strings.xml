@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">CoAL</string>
+    <!-- Strings related to toolbar-->
+    <string name="toolbar_button_content_description">navigation_button</string>
+    <!-- Strings related to alarmList -->
+    <string name="alarmlist_toolbar_title">알람 리스트</string>
+    <!-- Strings related to alarmSetting -->
+    <!-- Strings related to coinSelect -->
+    <!-- Strings related to coinSearch -->
 </resources>

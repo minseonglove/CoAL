@@ -11,5 +11,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/alarm_list_background"/>
+        android:background="@drawable/alarm_list_background">
+
+        <include
+            layout="@layout/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleText="@{@string/alarmlist_toolbar_title}"
+            app:icon="@{@drawable/icon_right}"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,6 +1,7 @@
 package com.minseonglove.coal.ui.alarm_list
 
 import android.os.Bundle
+import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,10 +39,4 @@ class AlarmListFragment : Fragment() {
         Logger.addLogAdapter(AndroidLogAdapter())
         return binding.root
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-
 }
