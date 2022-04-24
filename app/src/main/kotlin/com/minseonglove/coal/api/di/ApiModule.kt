@@ -1,14 +1,19 @@
 package com.minseonglove.coal.api.di
 
+import android.content.Context
+import androidx.room.Room
 import com.minseonglove.coal.api.data.Constants.Companion.BASE_URL
 import com.minseonglove.coal.api.repository.CheckCandleRepository
 import com.minseonglove.coal.api.repository.CoinListRepository
 import com.minseonglove.coal.api.service.CheckCandleService
 import com.minseonglove.coal.api.service.CoinListService
+import com.minseonglove.coal.room.AppDatabase
+import com.minseonglove.coal.room.MyAlarmDao
 import com.orhanobut.logger.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -18,7 +23,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class ApiModule {
+object ApiModule {
 
     @Provides
     fun provideBaseUrl() = BASE_URL
@@ -64,4 +69,16 @@ class ApiModule {
     @Provides
     fun provideCheckCandleRepository(service: CheckCandleService): CheckCandleRepository =
         CheckCandleRepository(service)
+
+    @Singleton
+    @Provides
+    fun provideAppDatabase(
+        @ApplicationContext context: Context
+    ): AppDatabase = Room
+        .databaseBuilder(context, AppDatabase::class.java, "coal.db")
+        .build()
+
+    @Singleton
+    @Provides
+    fun provideMyAlarmDao(appDatabase: AppDatabase): MyAlarmDao = appDatabase.myAlarmDao()
 }
