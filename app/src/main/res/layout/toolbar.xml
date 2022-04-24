@@ -9,29 +9,33 @@
             name="icon"
             type="android.graphics.drawable.Drawable" />
     </data>
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/transparent">
-
-        <TextView
-            android:layout_width="wrap_content"
+    <merge>
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@{titleText}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@color/main_font_color"
-            android:textStyle="bold"
-            tools:text="@string/alarmlist_toolbar_title" />
+            android:background="@color/transparent">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:background="@color/transparent"
-            android:src="@{icon}"
-            tools:src="@drawable/icon_right"
-            android:contentDescription="@string/toolbar_button_content_description" />
+            <TextView
+                android:id="@+id/textview_toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@{titleText}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/main_font_color"
+                android:textStyle="bold"
+                tools:text="@string/alarmlist_toolbar_title" />
 
-    </androidx.appcompat.widget.Toolbar>
+            <ImageButton
+                android:id="@+id/button_toolbar_navigation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="@color/transparent"
+                android:src="@{icon}"
+                tools:src="@drawable/icon_right"
+                android:contentDescription="@string/toolbar_button_content_description" />
+
+        </androidx.appcompat.widget.Toolbar>
+    </merge>
 </layout>
