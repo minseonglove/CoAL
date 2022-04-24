@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#0000</color>
     <color name="main_font_color">#280543</color>
+    <color name="selected_coin_color">#651B36</color>
 </resources>

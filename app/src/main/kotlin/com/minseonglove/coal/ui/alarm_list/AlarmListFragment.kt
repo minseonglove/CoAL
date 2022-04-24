@@ -1,14 +1,13 @@
 package com.minseonglove.coal.ui.alarm_list
 
 import android.os.Bundle
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.minseonglove.coal.R
 import com.minseonglove.coal.databinding.FragmentAlarmListBinding
 import com.orhanobut.logger.AndroidLogAdapter
@@ -43,8 +42,13 @@ class AlarmListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // 알람 리스트 -> 조건에 맞는 코인 검색
         binding.toolbarAlarmlist.buttonToolbarNavigation.setOnClickListener {
-            Toast.makeText(requireContext(), "asdf", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_alarmListFragment_to_coinSearchFragment)
+        }
+        // 알람 리스트 -> 알람 설정
+        binding.bottomButtonAlarmlist.buttonBottomAction.setOnClickListener {
+            findNavController().navigate(R.id.action_alarmListFragment_to_alarmSettingFragment)
         }
     }
 }

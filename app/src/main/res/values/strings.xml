@@ -1,9 +1,65 @@
 <resources>
     <string name="app_name">CoAL</string>
     <!-- Strings related to toolbar-->
-    <string name="toolbar_button_content_description">navigation button</string>
-    <!-- Strings related to bottom_button-->
-    <string name="bottom_button_content_description">bottom action button</string>
+    <string name="toolbar_button_description">navigation button</string>
+    <!-- Strings related to bottomButton-->
+    <string name="bottom_button_description">bottom action button</string>
+    <!-- Strings related to settingCondition-->
+    <string name="minutes_spinner_description">choose minutes condition</string>
+    <string name="indicator_spinner_description">choose indicator condition</string>
+    <string name="price_spinner_description">choose price condition</string>
+    <string name="moving_average_spinner_description">choose MA condition</string>
+    <string name="value_condition_spinner_description">choose value condition</string>
+    <string name="signal_condition_spinner_description">choose signal condition</string>
+    <string name="setting_condition_hint_price">Price</string>
+    <string name="setting_condition_hint_value">N</string>
+    <string name="setting_condition_hint_percentage">%</string>
+    <string name="setting_condition_hint_stochastic_k">%K</string>
+    <string name="setting_condition_hint_stochastic_d">%D</string>
+    <string name="setting_condition_hint_macd_n">N</string>
+    <string name="setting_condition_hint_macd_m">M</string>
+    <string name="setting_condition_button_select_coin">종목 검색</string>
+    <string name="setting_condition_text_selected_coin">코인을 선택해 주세요</string>
+    <string name="setting_condition_text_minutes">차트 (분)</string>
+    <string name="setting_condition_text_indicator">감시 대상</string>
+    <string name="setting_condition_text_price">가격</string>
+    <string name="setting_condition_text_candles">N</string>
+    <string name="setting_condition_text_value">Value</string>
+    <string name="setting_condition_text_signal">Signal</string>
+    <string name="setting_condition_text_stochastic">Slow %K %D</string>
+    <string name="setting_condition_text_stochastic_cross">%K %D 교차</string>
+    <string name="setting_condition_text_macd">N, M</string>
+
+    <string-array name="minute_items">
+        <item>"1"</item>
+        <item>"3"</item>
+        <item>"5"</item>
+        <item>"10"</item>
+        <item>"15"</item>
+        <item>"30"</item>
+        <item>"60"</item>
+        <item>"240"</item>
+    </string-array>
+
+    <string-array name="indicator_items">
+        <item>"가격"</item>
+        <item>"이동평균선"</item>
+        <item>"RSI"</item>
+        <item>"stochastic"</item>
+        <item>"MACD"</item>
+    </string-array>
+
+    <string-array name="up_down_items">
+        <item>"상승"</item>
+        <item>"하락"</item>
+    </string-array>
+
+    <string-array name="cross_items">
+        <item>"사용안함"</item>
+        <item>"골든크로스"</item>
+        <item>"데드크로스"</item>
+    </string-array>
+
     <!-- Strings related to alarmList -->
     <string name="alarmlist_toolbar_title">알람 리스트</string>
     <!-- Strings related to alarmSetting -->

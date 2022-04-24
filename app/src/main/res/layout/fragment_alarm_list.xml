@@ -25,8 +25,8 @@
             app:titleText="@{@string/alarmlist_toolbar_title}" />
 
         <include
-            android:id="@+id/bottom_button_alarmsetting"
-            layout="@layout/include_bottom_button"
+            android:id="@+id/bottom_button_alarmlist"
+            layout="@layout/include_bottom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"

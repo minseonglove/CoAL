@@ -11,14 +11,17 @@
         <action
             android:id="@+id/action_alarmListFragment_to_alarmSettingFragment"
             app:destination="@id/alarmSettingFragment" />
+        <action
+            android:id="@+id/action_alarmListFragment_to_coinSearchFragment"
+            app:destination="@id/coinSearchFragment" />
     </fragment>
     <fragment
         android:id="@+id/coinSearchFragment"
         android:name="com.minseonglove.coal.ui.coin_search.CoinSearchFragment"
         android:label="CoinSearchFragment" >
         <action
-            android:id="@+id/action_coinSearchFragment_to_alarmSettingFragment"
-            app:destination="@id/alarmSettingFragment" />
+            android:id="@+id/action_coinSearchFragment_to_alarmListFragment"
+            app:destination="@id/alarmListFragment" />
     </fragment>
     <fragment
         android:id="@+id/alarmSettingFragment"
@@ -27,9 +30,6 @@
         <action
             android:id="@+id/action_alarmSettingFragment_to_coinSelectFragment"
             app:destination="@id/coinSelectFragment" />
-        <action
-            android:id="@+id/action_alarmSettingFragment_to_coinSearchFragment"
-            app:destination="@id/coinSearchFragment" />
         <action
             android:id="@+id/action_alarmSettingFragment_to_alarmListFragment"
             app:destination="@id/alarmListFragment" />

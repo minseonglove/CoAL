@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="isAlarmSetting"
+            type="Boolean" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/box_setting"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="24dp">
+
+        <TextView
+            android:id="@+id/textview_setting_selected_coin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setting_condition_text_selected_coin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/selected_coin_color"
+            android:textStyle="bold"
+            android:visibility="@{isAlarmSetting ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_setting_select_coin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_select_coin"
+            android:text="@string/setting_condition_button_select_coin"
+            android:textColor="@color/main_font_color"
+            android:textStyle="bold"
+            android:visibility="@{isAlarmSetting ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textview_setting_selected_coin" />
+
+        <TextView
+            android:id="@+id/textview_setting_minutes"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="@string/setting_condition_text_minutes"
+            android:textColor="@color/main_font_color"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_setting_select_coin" />
+
+        <Spinner
+            android:id="@+id/spinner_setting_minutes"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/box_spinner"
+            android:contentDescription="@string/minutes_spinner_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/textview_setting_minutes"
+            app:layout_constraintTop_toBottomOf="@+id/button_setting_select_coin"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/textview_setting_indicator"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:gravity="center"
+            android:text="@string/setting_condition_text_indicator"
+            android:textColor="@color/main_font_color"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_setting_minutes" />
+
+        <Spinner
+            android:id="@+id/spinner_setting_indicator"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/box_spinner"
+            android:contentDescription="@string/indicator_spinner_description"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textview_setting_indicator"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_setting_minutes"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/textview_setting_price"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:gravity="center"
+            android:text="@string/setting_condition_text_price"
+            android:textColor="@color/main_font_color"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_setting_indicator" />
+
+        <EditText
+            android:id="@+id/edittext_setting_price"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/box_edittext"
+            android:gravity="center"
+            android:hint="@string/setting_condition_hint_price"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:textColorHint="#757575"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/spinner_setting_price"
+            app:layout_constraintStart_toEndOf="@+id/textview_setting_price"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_setting_indicator"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Spinner
+            android:id="@+id/spinner_setting_price"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/box_spinner"
+            android:contentDescription="@string/price_spinner_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/edittext_setting_price"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_setting_indicator"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/textview_setting_candles"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:gravity="center"
+            android:text="@string/setting_condition_text_candles"
+            android:textColor="@color/main_font_color"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edittext_setting_price" />
+
+        <EditText
+            android:id="@+id/edittext_setting_candles"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/box_edittext"
+            android:gravity="center"
+            android:hint="@string/setting_condition_text_candles"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:textColorHint="#757575"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/spinner_setting_candles"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/textview_setting_candles"
+            app:layout_constraintTop_toBottomOf="@+id/edittext_setting_price"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+        <Spinner
+            android:id="@+id/spinner_setting_candles"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/box_spinner"
+            android:contentDescription="@string/moving_average_spinner_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/edittext_setting_candles"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_setting_price"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/textview_setting_stochastic"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:gravity="center"
+            android:text="@string/setting_condition_text_stochastic"
+            android:textColor="@color/main_font_color"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edittext_setting_candles" />
+
+        <EditText
+            android:id="@+id/edittext_setting_n"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/box_edittext"
+            android:gravity="center"
+            android:hint="@string/setting_condition_text_candles"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:textColorHint="#757575"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/edittext_setting_k"
+            app:layout_constraintStart_toEndOf="@+id/textview_setting_stochastic"
+            app:layout_constraintTop_toBottomOf="@+id/edittext_setting_candles"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+        <EditText
+            android:id="@+id/edittext_setting_k"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/box_edittext"
+            android:gravity="center"
+            android:hint="@string/setting_condition_hint_stochastic_d"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:textColorHint="#757575"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/edittext_setting_d"
+            app:layout_constraintStart_toEndOf="@+id/edittext_setting_n"
+            app:layout_constraintTop_toBottomOf="@+id/edittext_setting_candles"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+        <EditText
+            android:id="@+id/edittext_setting_d"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/box_edittext"
+            android:gravity="center"
+            android:hint="@string/setting_condition_hint_stochastic_k"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:textColorHint="#757575"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/edittext_setting_k"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_setting_candles"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+        <TextView
+            android:id="@+id/textview_setting_stochastic_cross"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:gravity="center"
+            android:text="@string/setting_condition_text_stochastic_cross"
+            android:textColor="@color/main_font_color"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edittext_setting_n" />
+
+        <Spinner
+            android:id="@+id/spinner_setting_stochastic_cross"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/box_spinner"
+            android:contentDescription="@string/signal_condition_spinner_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textview_setting_macd"
+            app:layout_constraintTop_toBottomOf="@+id/edittext_setting_n"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+        <TextView
+            android:id="@+id/textview_setting_macd"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:gravity="center"
+            android:text="@string/setting_condition_text_macd"
+            android:textColor="@color/main_font_color"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_setting_stochastic_cross" />
+
+        <EditText
+            android:id="@+id/edittext_setting_macd_n"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/box_edittext"
+            android:gravity="center"
+            android:hint="@string/setting_condition_hint_macd_n"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:textColorHint="#757575"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/edittext_setting_macd_m"
+            app:layout_constraintStart_toEndOf="@+id/textview_setting_stochastic_cross"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_setting_stochastic_cross"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+        <EditText
+            android:id="@+id/edittext_setting_macd_m"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/box_edittext"
+            android:gravity="center"
+            android:hint="@string/setting_condition_hint_macd_m"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:textColorHint="#757575"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/edittext_setting_macd_n"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_setting_stochastic_cross"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+        <TextView
+            android:id="@+id/textview_setting_value"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:gravity="center"
+            android:text="@string/setting_condition_text_value"
+            android:textColor="@color/main_font_color"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edittext_setting_macd_n" />
+
+        <EditText
+            android:id="@+id/edittext_setting_value"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/box_edittext"
+            android:gravity="center"
+            android:hint="@string/setting_condition_hint_value"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:textColorHint="#757575"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/spinner_setting_value"
+            app:layout_constraintStart_toEndOf="@+id/textview_setting_value"
+            app:layout_constraintTop_toBottomOf="@+id/edittext_setting_macd_n"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+        <Spinner
+            android:id="@+id/spinner_setting_value"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/box_spinner"
+            android:contentDescription="@string/value_condition_spinner_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/edittext_setting_value"
+            app:layout_constraintTop_toBottomOf="@+id/edittext_setting_macd_m"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/textview_setting_signal"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:gravity="center"
+            android:text="@string/setting_condition_text_signal"
+            android:textColor="@color/main_font_color"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edittext_setting_value" />
+
+        <EditText
+            android:id="@+id/edittext_setting_signal"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/box_edittext"
+            android:gravity="center"
+            android:hint="@string/setting_condition_text_candles"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:textColorHint="#757575"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/spinner_setting_signal"
+            app:layout_constraintStart_toEndOf="@+id/textview_setting_value"
+            app:layout_constraintTop_toBottomOf="@+id/edittext_setting_value"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+        <Spinner
+            android:id="@+id/spinner_setting_signal"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/box_spinner"
+            android:contentDescription="@string/signal_condition_spinner_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/edittext_setting_signal"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_setting_value"
+            tools:ignore="TouchTargetSizeCheck" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

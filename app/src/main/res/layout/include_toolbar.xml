@@ -33,7 +33,7 @@
                 android:background="@color/transparent"
                 android:src="@{buttonIcon}"
                 tools:src="@drawable/icon_right"
-                android:contentDescription="@string/toolbar_button_content_description" />
+                android:contentDescription="@string/toolbar_button_description" />
 
         </androidx.appcompat.widget.Toolbar>
 </layout>

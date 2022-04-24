@@ -3,14 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/qnfpd/CoAL/app/src/main/res/drawable/box_edittext.xml" value="0.177" />
+        <entry key="..\:/Users/qnfpd/CoAL/app/src/main/res/drawable/box_setting.xml" value="0.177" />
+        <entry key="..\:/Users/qnfpd/CoAL/app/src/main/res/drawable/box_spinner.xml" value="0.177" />
+        <entry key="..\:/Users/qnfpd/CoAL/app/src/main/res/drawable/button_circle.xml" value="0.177" />
+        <entry key="..\:/Users/qnfpd/CoAL/app/src/main/res/drawable/button_select_coin.xml" value="0.152" />
         <entry key="..\:/Users/qnfpd/CoAL/app/src/main/res/drawable/circle_button.xml" value="0.152" />
         <entry key="..\:/Users/qnfpd/CoAL/app/src/main/res/drawable/setting_box.xml" value="0.152" />
         <entry key="..\:/Users/qnfpd/CoAL/app/src/main/res/layout/activity_main.xml" value="0.1421875" />
         <entry key="..\:/Users/qnfpd/CoAL/app/src/main/res/layout/fragment_alarm_list.xml" value="0.25" />
         <entry key="..\:/Users/qnfpd/CoAL/app/src/main/res/layout/fragment_alarm_setting.xml" value="0.25" />
-        <entry key="..\:/Users/qnfpd/CoAL/app/src/main/res/layout/fragment_coin_search.xml" value="0.1421875" />
+        <entry key="..\:/Users/qnfpd/CoAL/app/src/main/res/layout/fragment_coin_search.xml" value="0.2" />
         <entry key="..\:/Users/qnfpd/CoAL/app/src/main/res/layout/fragment_coin_select.xml" value="0.1421875" />
+        <entry key="..\:/Users/qnfpd/CoAL/app/src/main/res/layout/include_bottom.xml" value="0.2984375" />
         <entry key="..\:/Users/qnfpd/CoAL/app/src/main/res/layout/include_bottom_button.xml" value="0.33" />
+        <entry key="..\:/Users/qnfpd/CoAL/app/src/main/res/layout/include_setting_condition.xml" value="0.22" />
+        <entry key="..\:/Users/qnfpd/CoAL/app/src/main/res/layout/include_toolbar.xml" value="0.2984375" />
         <entry key="..\:/Users/qnfpd/CoAL/app/src/main/res/layout/toolbar.xml" value="0.33" />
         <entry key="..\:/Users/qnfpd/CoAL/app/src/main/res/menu/toolbar_menu.xml" value="0.67" />
       </map>

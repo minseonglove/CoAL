@@ -11,11 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <ImageView
-            android:id="@+id/imageView"
+        <ImageButton
+            android:id="@+id/button_bottom_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/circle_button"
+            android:background="@drawable/button_circle"
             android:scaleType="centerInside"
             android:src="@{buttonIcon}"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -23,6 +23,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/icon_add"
-            android:contentDescription="@string/bottom_button_content_description" />
+            android:contentDescription="@string/bottom_button_description" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
