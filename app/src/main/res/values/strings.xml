@@ -66,6 +66,8 @@
     <string name="alarmsetting_toolbar_title">알람 생성</string>
     <!-- Strings related to coinSelect -->
     <string name="coinselect_toolbar_title">종목 검색</string>
+    <string name="coinselect_listview_example">검색 결과 (AAA-AAA)</string>
+    <string name="coinselect_text_search_filter">검색 필터</string>
     <!-- Strings related to coinSearch -->
     <string name="coinsearch_toolbar_title">조건 검색</string>
 </resources>

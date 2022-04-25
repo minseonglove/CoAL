@@ -1,4 +1,4 @@
-package com.minseonglove.coal.room
+package com.minseonglove.coal.db
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

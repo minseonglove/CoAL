@@ -7,8 +7,8 @@ import com.minseonglove.coal.api.repository.CheckCandleRepository
 import com.minseonglove.coal.api.repository.CoinListRepository
 import com.minseonglove.coal.api.service.CheckCandleService
 import com.minseonglove.coal.api.service.CoinListService
-import com.minseonglove.coal.room.AppDatabase
-import com.minseonglove.coal.room.MyAlarmDao
+import com.minseonglove.coal.db.AppDatabase
+import com.minseonglove.coal.db.MyAlarmDao
 import com.orhanobut.logger.BuildConfig
 import dagger.Module
 import dagger.Provides
@@ -75,7 +75,7 @@ object ApiModule {
     fun provideAppDatabase(
         @ApplicationContext context: Context
     ): AppDatabase = Room
-        .databaseBuilder(context, AppDatabase::class.java, "coal.db")
+        .databaseBuilder(context, AppDatabase::class.java, "coal-db")
         .build()
 
     @Singleton
