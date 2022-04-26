@@ -8,6 +8,9 @@
         <variable
             name="isAlarmSetting"
             type="Boolean" />
+        <variable
+            name="alarmSettingViewModel"
+            type="com.minseonglove.coal.ui.alarm_setting.AlarmSettingViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,7 +23,7 @@
             android:id="@+id/textview_setting_selected_coin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/setting_condition_text_selected_coin"
+            android:text="@{alarmSettingViewModel.selectedCoin}"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/selected_coin_color"
             android:textStyle="bold"

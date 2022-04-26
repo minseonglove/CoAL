@@ -19,7 +19,7 @@ class MainViewModel @Inject constructor(
 
     val loadingCoinList: SharedFlow<Set<String>> get() = _loadingCoinList
 
-    fun getCoinList(){
+    fun getCoinList() {
         viewModelScope.launch {
             val coinSet: HashSet<String> = HashSet()
             val coinList = repository.getCoinList()
@@ -33,6 +33,4 @@ class MainViewModel @Inject constructor(
             }
         }
     }
-
-
 }

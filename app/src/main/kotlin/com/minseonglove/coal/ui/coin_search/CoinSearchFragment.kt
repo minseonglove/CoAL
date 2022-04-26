@@ -1,40 +1,23 @@
 package com.minseonglove.coal.ui.coin_search
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.minseonglove.coal.R
 import com.minseonglove.coal.databinding.FragmentCoinSearchBinding
 
-class CoinSearchFragment : Fragment() {
+class CoinSearchFragment : Fragment(R.layout.fragment_coin_search) {
 
-    private lateinit var _binding: FragmentCoinSearchBinding
-
-    private val binding get() = _binding
+    private val binding by viewBinding(FragmentCoinSearchBinding::bind)
     private val viewModel: CoinSearchViewModel by viewModels()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = DataBindingUtil.inflate<FragmentCoinSearchBinding?>(
-            inflater,
-            R.layout.fragment_coin_search,
-            container,
-            false
-        ).apply {
-            vm = viewModel
-            lifecycleOwner = this@CoinSearchFragment
-        }
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.apply {
+            vm = viewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
     }
 }

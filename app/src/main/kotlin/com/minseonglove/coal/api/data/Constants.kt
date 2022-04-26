@@ -3,6 +3,7 @@ package com.minseonglove.coal.api.data
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 
@@ -12,6 +13,7 @@ class Constants {
         val Context.datastore: DataStore<Preferences> by preferencesDataStore(
             name = "coin_list"
         )
-        val SAVED_COIN_LIST = stringSetPreferencesKey("coin")
+        val SAVED_COIN_LIST = stringSetPreferencesKey("coin_list")
+        val SAVED_SELECTED_COIN = stringPreferencesKey("coin_name")
     }
 }

@@ -1,8 +1,8 @@
 package com.minseonglove.coal
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -11,7 +11,6 @@ import com.minseonglove.coal.api.data.Constants.Companion.SAVED_COIN_LIST
 import com.minseonglove.coal.api.data.Constants.Companion.datastore
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 

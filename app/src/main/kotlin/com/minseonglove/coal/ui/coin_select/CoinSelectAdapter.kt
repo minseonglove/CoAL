@@ -1,16 +1,18 @@
 package com.minseonglove.coal.ui.coin_select
 
-import android.util.Log
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.minseonglove.coal.R
 import com.minseonglove.coal.databinding.RecyclerCoinListBinding
 
-class CoinSelectAdapter(private var coinList: List<String>)
-    : RecyclerView.Adapter<CoinSelectAdapter.ViewHolder>() {
+class CoinSelectAdapter(
+    private var coinList: List<String>,
+    private val itemClick: (String) -> Unit
+) : RecyclerView.Adapter<CoinSelectAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val binding: RecyclerCoinListBinding):
+    inner class ViewHolder(val binding: RecyclerCoinListBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): CoinSelectAdapter.ViewHolder {
@@ -22,14 +24,16 @@ class CoinSelectAdapter(private var coinList: List<String>)
 
     override fun onBindViewHolder(holder: CoinSelectAdapter.ViewHolder, position: Int) {
         holder.binding.textviewCoinList.text = coinList[position]
+        holder.binding.layoutCoinList.setOnClickListener {
+            itemClick(coinList[position])
+        }
     }
 
     override fun getItemCount(): Int = coinList.size
 
-    /*
+    @SuppressLint("NotifyDataSetChanged")
     fun updateItems(items: List<String>) {
         coinList = items
         notifyDataSetChanged()
     }
-     */
 }

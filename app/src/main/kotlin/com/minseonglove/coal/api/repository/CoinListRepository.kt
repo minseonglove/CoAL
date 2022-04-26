@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class CoinListRepository @Inject constructor(
     private val service: CoinListService
-){
+) {
     suspend fun getCoinList(): Response<List<CoinList>> {
         return service.getCoinList()
     }

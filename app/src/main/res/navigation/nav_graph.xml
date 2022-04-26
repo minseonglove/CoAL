@@ -40,6 +40,9 @@
         android:label="CoinSelectFragment" >
         <action
             android:id="@+id/action_coinSelectFragment_to_alarmSettingFragment"
-            app:destination="@id/alarmSettingFragment" />
+            app:destination="@id/alarmSettingFragment"
+            app:popUpTo="@id/coinSelectFragment"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true" />
     </fragment>
 </navigation>
