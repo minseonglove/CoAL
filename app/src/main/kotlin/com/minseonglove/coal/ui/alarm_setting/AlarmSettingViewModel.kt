@@ -2,12 +2,15 @@ package com.minseonglove.coal.ui.alarm_setting
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 class AlarmSettingViewModel : ViewModel() {
 
-    val selectedCoin = MutableStateFlow("")
+    private val _selectedCoin = MutableStateFlow("")
+
+    val selectedCoin: StateFlow<String> get() = _selectedCoin
 
     fun setCoinName(coinName: String) {
-        selectedCoin.value = coinName
+        _selectedCoin.value = coinName
     }
 }

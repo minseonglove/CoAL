@@ -13,7 +13,7 @@
     <string name="signal_condition_spinner_description">choose signal condition</string>
     <string name="setting_condition_hint_price">Price</string>
     <string name="setting_condition_hint_value">N</string>
-    <string name="setting_condition_hint_percentage">%</string>
+    <string name="setting_condition_hint_percent">%</string>
     <string name="setting_condition_hint_stochastic_k">%K</string>
     <string name="setting_condition_hint_stochastic_d">%D</string>
     <string name="setting_condition_hint_macd_n">N</string>

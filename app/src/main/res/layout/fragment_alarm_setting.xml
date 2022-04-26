@@ -5,8 +5,11 @@
     tools:context=".ui.alarm_setting.AlarmSettingFragment">
     <data>
         <variable
-            name="vm"
-            type="com.minseonglove.coal.ui.alarm_setting.AlarmSettingViewModel" />
+            name="alarmSettingViewModel"
+            type="com.minseonglove.coal.ui.alarm_setting.AlarmSettingViewModel"/>
+        <variable
+            name="settingConditionViewModel"
+            type="com.minseonglove.coal.ui.setting_condition.SettingConditionViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +38,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar_alarmsetting"
             app:isAlarmSetting="@{true}"
-            app:alarmSettingViewModel="@{vm}"/>
+            app:alarmSettingViewModel="@{alarmSettingViewModel}"
+            app:settingConditionViewModel="@{settingConditionViewModel}"/>
+
 
         <include
             android:id="@+id/bottom_button_alarmsetting"
