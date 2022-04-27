@@ -23,6 +23,7 @@ import com.minseonglove.coal.ui.setting_condition.IndicatorType.RSI
 import com.minseonglove.coal.ui.setting_condition.IndicatorType.STOCHASTIC
 import com.minseonglove.coal.ui.setting_condition.IndicatorType.MACD
 import com.minseonglove.coal.ui.setting_condition.SettingConditionViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -30,6 +31,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class AlarmSettingFragment : Fragment(R.layout.fragment_alarm_setting) {
 
     private val binding by viewBinding(FragmentAlarmSettingBinding::bind)
@@ -59,6 +61,15 @@ class AlarmSettingFragment : Fragment(R.layout.fragment_alarm_setting) {
             lifecycleOwner = viewLifecycleOwner
         }
 
+        binding.toolbarAlarmsetting.buttonToolbarNavigation.setOnClickListener {
+            findNavController().navigate(R.id.action_alarmSettingFragment_to_alarmListFragment)
+        }
+
+        binding.bottomButtonAlarmsetting.buttonBottomAction.setOnClickListener {
+            addAlarm()
+            findNavController().navigate(R.id.action_alarmSettingFragment_to_alarmListFragment)
+        }
+
         initCoinName()
         initSpinner()
         initCollector()
@@ -80,6 +91,16 @@ class AlarmSettingFragment : Fragment(R.layout.fragment_alarm_setting) {
                 }
             }
         }
+    }
+
+    private fun addAlarm() {
+        val minuteItems = resources.getStringArray(R.array.minute_items)
+        alarmSettingViewModel.addAlarm(
+            settingConditionViewModel.getAlarm(
+                alarmSettingViewModel.selectedCoin.value,
+                minuteItems[settingConditionViewModel.minutePos.value].toInt()
+            )
+        )
     }
 
     private fun showSettingDisplay(indicator: IndicatorType) {

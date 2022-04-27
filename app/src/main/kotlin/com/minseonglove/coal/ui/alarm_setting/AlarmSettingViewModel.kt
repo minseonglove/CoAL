@@ -1,10 +1,20 @@
 package com.minseonglove.coal.ui.alarm_setting
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.minseonglove.coal.db.AppDatabase
+import com.minseonglove.coal.db.MyAlarm
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AlarmSettingViewModel : ViewModel() {
+@HiltViewModel
+class AlarmSettingViewModel @Inject constructor(
+    private val db: AppDatabase
+): ViewModel() {
 
     private val _selectedCoin = MutableStateFlow("")
 
@@ -12,5 +22,11 @@ class AlarmSettingViewModel : ViewModel() {
 
     fun setCoinName(coinName: String) {
         _selectedCoin.value = coinName
+    }
+
+    fun addAlarm(alarm: MyAlarm) {
+        viewModelScope.launch(Dispatchers.IO) {
+            db.myAlarmDao().insert(alarm)
+        }
     }
 }

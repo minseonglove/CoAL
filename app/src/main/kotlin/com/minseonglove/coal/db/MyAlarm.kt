@@ -17,5 +17,6 @@ data class MyAlarm(
     @ColumnInfo(name = "value") val value: Double?,
     @ColumnInfo(name = "value_condition") val valueCondition: Int,
     @ColumnInfo(name = "signal") val signal: Int?,
-    @ColumnInfo(name = "signal_condition") val signalCondition: Int
+    @ColumnInfo(name = "signal_condition") val signalCondition: Int,
+    @ColumnInfo(name = "is_running") val isRunning: Boolean
 )

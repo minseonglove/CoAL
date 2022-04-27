@@ -51,6 +51,11 @@ class CoinSelectFragment : Fragment(R.layout.fragment_coin_select) {
             vm = viewModel
             lifecycleOwner = viewLifecycleOwner
         }
+
+        binding.toolbarCoinselect.buttonToolbarNavigation.setOnClickListener {
+            findNavController().navigate(R.id.action_coinSelectFragment_to_alarmSettingFragment)
+        }
+
         initCollector()
     }
 
