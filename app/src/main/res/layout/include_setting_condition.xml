@@ -374,7 +374,7 @@
             android:inputType="number"
             android:textColorHint="#757575"
             android:textSize="14sp"
-            android:text="@{settingConditionViewModel.limitValue}"
+            android:text="@={settingConditionViewModel.limitValue}"
             app:layout_constraintEnd_toStartOf="@+id/spinner_setting_value"
             app:layout_constraintStart_toEndOf="@+id/textview_setting_value"
             app:layout_constraintTop_toBottomOf="@+id/edittext_setting_macd_n"
