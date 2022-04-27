@@ -26,7 +26,6 @@ class AlarmListViewModel @Inject constructor(
 
     fun updateRunningState(state: Boolean, id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            Log.d("coin", "들어감2 $state")
             repository.updateRunning(state, id)
         }
     }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,6 +19,10 @@ import com.minseonglove.coal.ui.setting_condition.IndicatorType.MOVING_AVERAGE
 import com.minseonglove.coal.ui.setting_condition.IndicatorType.PRICE
 import com.minseonglove.coal.ui.setting_condition.IndicatorType.RSI
 import com.minseonglove.coal.ui.setting_condition.IndicatorType.STOCHASTIC
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.util.logging.Handler
 
 class AlarmListAdapter(
     private var alarmList: List<MyAlarm>,
@@ -49,8 +54,10 @@ class AlarmListAdapter(
             }
             switchAlarmlistRunning.isChecked = alarmList[position].isRunning
             switchAlarmlistRunning.setOnCheckedChangeListener { _, isChecked ->
-                Log.d("coin", "들어감1")
-                updateRunningState(isChecked, alarmList[position].id)
+                // 핸들러로 감싸지 않으면 애니메이션이 동작 안함
+                android.os.Handler(Looper.getMainLooper()).postDelayed({
+                    updateRunningState(isChecked, alarmList[position].id)
+                }, 200)
             }
         }
     }
