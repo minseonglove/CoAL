@@ -23,5 +23,10 @@ object DatabaseModule {
             .build()
 
     @Provides
+    @Singleton
     fun provideMyAlarmDao(database: AppDatabase) = database.myAlarmDao()
+
+    @Provides
+    @Singleton
+    fun provideMyAlarmRepository(dao: MyAlarmDao) = MyAlarmRepository(dao)
 }

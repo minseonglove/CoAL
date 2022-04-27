@@ -23,13 +23,15 @@ class CoinSelectAdapter(
     }
 
     override fun onBindViewHolder(holder: CoinSelectAdapter.ViewHolder, position: Int) {
-        holder.binding.textviewCoinList.text = coinList[position]
-        holder.binding.layoutCoinList.setOnClickListener {
-            itemClick(coinList[position])
+        with(holder.binding) {
+            textviewCoinList.text = coinList[position]
+            constraintlayoutCoinList.setOnClickListener {
+                itemClick(coinList[position])
+            }
         }
     }
 
-    override fun getItemCount(): Int = coinList.size
+    override fun getItemCount() = coinList.size
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateItems(items: List<String>) {

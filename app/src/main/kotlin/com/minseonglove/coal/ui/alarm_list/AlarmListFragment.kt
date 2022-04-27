@@ -12,11 +12,14 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.minseonglove.coal.R
 import com.minseonglove.coal.databinding.FragmentAlarmListBinding
+import com.minseonglove.coal.db.MyAlarm
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AlarmListFragment : Fragment(R.layout.fragment_alarm_list) {
+
+    private lateinit var alarmListAdapter: AlarmListAdapter
 
     private val binding by viewBinding(FragmentAlarmListBinding::bind)
     private val viewModel: AlarmListViewModel by viewModels()
@@ -26,19 +29,28 @@ class AlarmListFragment : Fragment(R.layout.fragment_alarm_list) {
         with(binding) {
             vm = viewModel
             lifecycleOwner = viewLifecycleOwner
-            // 알람 리스트 -> 조건에 맞는 코인 검색
-            toolbarAlarmlist.buttonToolbarNavigation.setOnClickListener {
-                findNavController().navigate(R.id.action_alarmListFragment_to_coinSearchFragment)
-            }
-            // 알람 리스트 -> 알람 설정
-            bottomButtonAlarmlist.buttonBottomAction.setOnClickListener {
-                findNavController().navigate(R.id.action_alarmListFragment_to_alarmSettingFragment)
-            }
         }
+        initNavigation()
+        collectAlarmList()
+    }
+
+    private fun initNavigation() {
+        // 알람 리스트 -> 조건에 맞는 코인 검색
+        binding.toolbarAlarmlist.buttonToolbarNavigation.setOnClickListener {
+            findNavController().navigate(R.id.action_alarmListFragment_to_coinSearchFragment)
+        }
+        // 알람 리스트 -> 알람 설정
+        binding.bottomButtonAlarmlist.buttonBottomAction.setOnClickListener {
+            findNavController().navigate(R.id.action_alarmListFragment_to_alarmSettingFragment)
+        }
+    }
+
+    private fun collectAlarmList() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.testList.collect {
                     if (it.isNotEmpty()) {
+                        //initRecyclerView(it)
                         it.forEach { alarm ->
                             Log.d("coin", alarm.toString())
                         }
@@ -46,6 +58,14 @@ class AlarmListFragment : Fragment(R.layout.fragment_alarm_list) {
                 }
             }
         }
-        viewModel.getTest()
+    }
+
+    private fun initRecyclerView(alarmList: List<MyAlarm>) {
+        alarmListAdapter = AlarmListAdapter(
+            alarmList,
+            resources.getStringArray(R.array.indicator_items),
+            resources.getStringArray(R.array.up_down_items),
+            resources.getStringArray(R.array.cross_items)
+        )
     }
 }
