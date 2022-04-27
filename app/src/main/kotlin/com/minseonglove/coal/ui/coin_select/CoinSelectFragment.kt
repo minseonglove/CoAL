@@ -72,14 +72,16 @@ class CoinSelectFragment : Fragment(R.layout.fragment_coin_select) {
         // 코인 검색
         lifecycleScope.launch {
             viewModel.searchedList.collectLatest {
-                coinSelectAdapter.updateItems(it)
+                coinSelectAdapter.submitList(it)
             }
         }
     }
 
     private fun initRecyclerView(list: List<String>) {
-        coinSelectAdapter = CoinSelectAdapter(list) { coinName ->
+        coinSelectAdapter = CoinSelectAdapter { coinName ->
             saveSelectedCoin(coinName)
+        }.apply {
+            submitList(list)
         }
         val divider = DividerItemDecoration(requireContext(), VERTICAL).apply {
             setDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.divider_coin_list)!!)
