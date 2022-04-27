@@ -9,6 +9,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.minseonglove.coal.R
 import com.minseonglove.coal.databinding.FragmentAlarmListBinding
@@ -48,9 +49,9 @@ class AlarmListFragment : Fragment(R.layout.fragment_alarm_list) {
     private fun collectAlarmList() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.testList.collect {
+                viewModel.getAlarmList.collect {
                     if (it.isNotEmpty()) {
-                        //initRecyclerView(it)
+                        updateRecyclerView(it)
                         it.forEach { alarm ->
                             Log.d("coin", alarm.toString())
                         }
@@ -60,12 +61,22 @@ class AlarmListFragment : Fragment(R.layout.fragment_alarm_list) {
         }
     }
 
-    private fun initRecyclerView(alarmList: List<MyAlarm>) {
-        alarmListAdapter = AlarmListAdapter(
-            alarmList,
-            resources.getStringArray(R.array.indicator_items),
-            resources.getStringArray(R.array.up_down_items),
-            resources.getStringArray(R.array.cross_items)
-        )
+    private fun updateRecyclerView(alarmList: List<MyAlarm>) {
+        if (!::alarmListAdapter.isInitialized) {
+            alarmListAdapter = AlarmListAdapter(
+                alarmList,
+                resources.getStringArray(R.array.indicator_items),
+                resources.getStringArray(R.array.up_down_items),
+                resources.getStringArray(R.array.cross_items)
+            ) { state, id ->
+                viewModel.updateRunningState(state, id)
+            }
+            binding.recyclerAlarmlist.apply {
+                layoutManager = LinearLayoutManager(activity)
+                adapter = alarmListAdapter
+            }
+        } else {
+            alarmListAdapter.updateItems(alarmList)
+        }
     }
 }

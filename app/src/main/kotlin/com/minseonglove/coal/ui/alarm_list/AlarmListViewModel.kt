@@ -1,5 +1,6 @@
 package com.minseonglove.coal.ui.alarm_list
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.minseonglove.coal.db.MyAlarm
@@ -15,18 +16,24 @@ import javax.inject.Inject
 @HiltViewModel
 class AlarmListViewModel @Inject constructor(
     private val repository: MyAlarmRepository
-): ViewModel() {
+) : ViewModel() {
 
-    val testList: SharedFlow<List<MyAlarm>> =
+    val getAlarmList: SharedFlow<List<MyAlarm>> =
         repository.getAll().shareIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000)
         )
+
+    fun updateRunningState(state: Boolean, id: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            Log.d("coin", "들어감2 $state")
+            repository.updateRunning(state, id)
+        }
+    }
 
     fun deleteAll() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteAll()
         }
     }
-
 }
