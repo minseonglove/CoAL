@@ -1,10 +1,13 @@
 package com.minseonglove.coal.ui.coin_select
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout.VERTICAL
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.fragment.app.Fragment
@@ -13,7 +16,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.minseonglove.coal.R
 import com.minseonglove.coal.api.data.Constants
 import com.minseonglove.coal.api.data.Constants.Companion.datastore
@@ -29,7 +31,9 @@ class CoinSelectFragment : Fragment(R.layout.fragment_coin_select) {
 
     private lateinit var coinSelectAdapter: CoinSelectAdapter
 
-    private val binding by viewBinding(FragmentCoinSelectBinding::bind)
+    private var _binding: FragmentCoinSelectBinding? = null
+
+    private val binding get() = _binding!!
     private val viewModel: CoinSelectViewModel by viewModels()
 
     private val backPressedCallback by lazy {
@@ -54,12 +58,26 @@ class CoinSelectFragment : Fragment(R.layout.fragment_coin_select) {
             }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.apply {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_coin_select,
+            container,
+            false
+        )
+        return binding.run {
             vm = viewModel
             lifecycleOwner = viewLifecycleOwner
+            root
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.toolbarCoinselect.buttonToolbarNavigation.setOnClickListener {
             findNavController().navigate(R.id.action_coinSelectFragment_to_alarmSettingFragment)
@@ -113,5 +131,11 @@ class CoinSelectFragment : Fragment(R.layout.fragment_coin_select) {
             }
             findNavController().navigate(R.id.action_coinSelectFragment_to_alarmSettingFragment)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        backPressedCallback.remove()
+        _binding = null
     }
 }

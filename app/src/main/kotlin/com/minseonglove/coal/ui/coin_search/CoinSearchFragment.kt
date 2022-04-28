@@ -1,17 +1,19 @@
 package com.minseonglove.coal.ui.coin_search
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.SpinnerAdapter
 import androidx.activity.OnBackPressedCallback
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.minseonglove.coal.R
 import com.minseonglove.coal.databinding.FragmentCoinSearchBinding
 import com.minseonglove.coal.ui.setting_condition.SettingConditionViewModel
@@ -20,7 +22,9 @@ import kotlinx.coroutines.launch
 
 class CoinSearchFragment : Fragment(R.layout.fragment_coin_search) {
 
-    private val binding by viewBinding(FragmentCoinSearchBinding::bind)
+    private var _binding: FragmentCoinSearchBinding? = null
+
+    private val binding get() = _binding!!
     private val viewModel: SettingConditionViewModel by viewModels()
 
     private val backPressedCallback by lazy {
@@ -31,12 +35,26 @@ class CoinSearchFragment : Fragment(R.layout.fragment_coin_search) {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.apply {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_coin_search,
+            container,
+            false
+        )
+        return binding.run {
             conditionViewModel = viewModel
             lifecycleOwner = viewLifecycleOwner
+            root
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initListener()
         initSpinner()
         initCollector()
@@ -86,4 +104,10 @@ class CoinSearchFragment : Fragment(R.layout.fragment_coin_search) {
 
     private fun createAdapter(items: Array<String>): SpinnerAdapter =
         ArrayAdapter(requireContext(), R.layout.spinner_item, items)
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        backPressedCallback.remove()
+        _binding = null
+    }
 }

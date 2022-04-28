@@ -1,10 +1,13 @@
 package com.minseonglove.coal.ui.alarm_setting
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.SpinnerAdapter
 import androidx.activity.OnBackPressedCallback
+import androidx.databinding.DataBindingUtil
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,7 +15,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.minseonglove.coal.R
 import com.minseonglove.coal.api.data.Constants
 import com.minseonglove.coal.api.data.Constants.Companion.datastore
@@ -29,7 +31,9 @@ import java.io.IOException
 @AndroidEntryPoint
 class AlarmSettingFragment : Fragment(R.layout.fragment_alarm_setting) {
 
-    private val binding by viewBinding(FragmentAlarmSettingBinding::bind)
+    private var _binding: FragmentAlarmSettingBinding? = null
+
+    private val binding get() = _binding!!
     private val alarmSettingViewModel: AlarmSettingViewModel by viewModels()
     private val conditionViewModel: SettingConditionViewModel by viewModels()
 
@@ -40,7 +44,6 @@ class AlarmSettingFragment : Fragment(R.layout.fragment_alarm_setting) {
             }
         }
     }
-
 
     private val coinName: Flow<String> by lazy {
         requireContext().datastore.data
@@ -54,6 +57,25 @@ class AlarmSettingFragment : Fragment(R.layout.fragment_alarm_setting) {
             .map { preferences ->
                 preferences[Constants.SAVED_SELECTED_COIN]?.toString() ?: "비트코인(KRW-BTC)"
             }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_alarm_setting,
+            container,
+            false
+        )
+        return binding.run {
+            alarmSettingViewModel = this@AlarmSettingFragment.alarmSettingViewModel
+            conditionViewModel = this@AlarmSettingFragment.conditionViewModel
+            lifecycleOwner = viewLifecycleOwner
+            root
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -138,4 +160,10 @@ class AlarmSettingFragment : Fragment(R.layout.fragment_alarm_setting) {
 
     private fun createAdapter(items: Array<String>): SpinnerAdapter =
         ArrayAdapter(requireContext(), R.layout.spinner_item, items)
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        backPressedCallback.remove()
+        _binding = null
+    }
 }

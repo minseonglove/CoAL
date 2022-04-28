@@ -2,15 +2,15 @@ package com.minseonglove.coal.ui.setting_condition
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.minseonglove.coal.db.MyAlarm
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import com.minseonglove.coal.api.data.Constants.Companion.MACD
 import com.minseonglove.coal.api.data.Constants.Companion.MOVING_AVERAGE
 import com.minseonglove.coal.api.data.Constants.Companion.PRICE
 import com.minseonglove.coal.api.data.Constants.Companion.RSI
 import com.minseonglove.coal.api.data.Constants.Companion.STOCHASTIC
+import com.minseonglove.coal.db.MyAlarm
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class SettingConditionViewModel : ViewModel() {
 
@@ -59,7 +59,7 @@ class SettingConditionViewModel : ViewModel() {
     fun getVisible() {
         viewModelScope.launch {
             shutdownAll()
-            when(indicator.value) {
+            when (indicator.value) {
                 PRICE -> {
                     _priceVisible.emit(0)
                 }
