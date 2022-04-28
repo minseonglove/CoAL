@@ -7,29 +7,28 @@ import android.widget.SpinnerAdapter
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.minseonglove.coal.R
 import com.minseonglove.coal.api.data.Constants
+import com.minseonglove.coal.api.data.Constants.Companion.MACD
+import com.minseonglove.coal.api.data.Constants.Companion.MOVING_AVERAGE
+import com.minseonglove.coal.api.data.Constants.Companion.PRICE
+import com.minseonglove.coal.api.data.Constants.Companion.RSI
+import com.minseonglove.coal.api.data.Constants.Companion.STOCHASTIC
 import com.minseonglove.coal.api.data.Constants.Companion.datastore
 import com.minseonglove.coal.databinding.FragmentAlarmSettingBinding
-import com.minseonglove.coal.R
-import com.minseonglove.coal.ui.setting_condition.IndicatorType
-import com.minseonglove.coal.ui.setting_condition.IndicatorType.MACD
-import com.minseonglove.coal.ui.setting_condition.IndicatorType.MOVING_AVERAGE
-import com.minseonglove.coal.ui.setting_condition.IndicatorType.PRICE
-import com.minseonglove.coal.ui.setting_condition.IndicatorType.RSI
-import com.minseonglove.coal.ui.setting_condition.IndicatorType.STOCHASTIC
 import com.minseonglove.coal.ui.setting_condition.SettingConditionViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.IOException
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import java.io.IOException
 
 @AndroidEntryPoint
 class AlarmSettingFragment : Fragment(R.layout.fragment_alarm_setting) {
@@ -87,7 +86,7 @@ class AlarmSettingFragment : Fragment(R.layout.fragment_alarm_setting) {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 settingConditionViewModel.indicator.collectLatest { indicator ->
-                    showSettingDisplay(IndicatorType.fromInt(indicator))
+                    showSettingDisplay(indicator)
                 }
             }
         }
@@ -103,7 +102,7 @@ class AlarmSettingFragment : Fragment(R.layout.fragment_alarm_setting) {
         )
     }
 
-    private fun showSettingDisplay(indicator: IndicatorType) {
+    private fun showSettingDisplay(indicator: Int) {
         displayGoneAll()
         with(binding.settingConditionAlarmsetting) {
             when (indicator) {

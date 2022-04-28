@@ -13,7 +13,14 @@ class Constants {
         val Context.datastore: DataStore<Preferences> by preferencesDataStore(
             name = "coin_list"
         )
+        // DataStore
         val SAVED_COIN_LIST = stringSetPreferencesKey("coin_list")
         val SAVED_SELECTED_COIN = stringPreferencesKey("coin_name")
+        // Indicator
+        const val PRICE = 0
+        const val MOVING_AVERAGE = 1
+        const val RSI = 2
+        const val STOCHASTIC = 3
+        const val MACD = 4
     }
 }

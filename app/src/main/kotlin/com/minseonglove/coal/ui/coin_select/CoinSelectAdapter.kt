@@ -13,10 +13,9 @@ class CoinSelectAdapter(
 ) : ListAdapter<String, CoinSelectAdapter.ViewHolder>(diffUtil) {
 
     class ViewHolder(val binding: RecyclerCoinListBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: String){
+        fun bind(item: String) {
             binding.textviewCoinList.text = item
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): ViewHolder {
@@ -40,9 +39,6 @@ class CoinSelectAdapter(
             override fun areItemsTheSame(oldItem: String, newItem: String) = oldItem == newItem
 
             override fun areContentsTheSame(oldItem: String, newItem: String) = oldItem == newItem
-
         }
-
     }
-
 }

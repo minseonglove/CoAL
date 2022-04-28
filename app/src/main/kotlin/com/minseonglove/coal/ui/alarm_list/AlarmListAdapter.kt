@@ -5,24 +5,18 @@ import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.minseonglove.coal.R
+import com.minseonglove.coal.api.data.Constants.Companion.MACD
+import com.minseonglove.coal.api.data.Constants.Companion.MOVING_AVERAGE
+import com.minseonglove.coal.api.data.Constants.Companion.PRICE
+import com.minseonglove.coal.api.data.Constants.Companion.RSI
+import com.minseonglove.coal.api.data.Constants.Companion.STOCHASTIC
 import com.minseonglove.coal.databinding.RecyclerAlarmListBinding
 import com.minseonglove.coal.db.MyAlarm
-import com.minseonglove.coal.ui.setting_condition.IndicatorType
-import com.minseonglove.coal.ui.setting_condition.IndicatorType.MACD
-import com.minseonglove.coal.ui.setting_condition.IndicatorType.MOVING_AVERAGE
-import com.minseonglove.coal.ui.setting_condition.IndicatorType.PRICE
-import com.minseonglove.coal.ui.setting_condition.IndicatorType.RSI
-import com.minseonglove.coal.ui.setting_condition.IndicatorType.STOCHASTIC
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.util.logging.Handler
 
 class AlarmListAdapter(
     private var alarmList: List<MyAlarm>,
@@ -73,7 +67,7 @@ class AlarmListAdapter(
         with(alarm) {
             return StringBuilder(indicatorItems[indicator]).apply {
                 appendLine(
-                    when (IndicatorType.fromInt(indicator)) {
+                    when (indicator) {
                         PRICE -> {
                             " $value ${coinName.substringAfter('(').substringBefore('-')} " +
                                 "${upDownItems[valueCondition]}돌파"
@@ -91,6 +85,7 @@ class AlarmListAdapter(
                         MACD -> {
                             " ($candle,$macdM) $value ${upDownItems[valueCondition]}돌파"
                         }
+                        else -> {}
                     }
                 )
                 // 시그널 사용
