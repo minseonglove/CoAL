@@ -3,6 +3,7 @@ package com.minseonglove.coal.ui.coin_select
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout.VERTICAL
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
@@ -30,6 +31,14 @@ class CoinSelectFragment : Fragment(R.layout.fragment_coin_select) {
 
     private val binding by viewBinding(FragmentCoinSelectBinding::bind)
     private val viewModel: CoinSelectViewModel by viewModels()
+
+    private val backPressedCallback by lazy {
+        object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.action_coinSelectFragment_to_alarmSettingFragment)
+            }
+        }
+    }
 
     private val coinList: Flow<List<String>> by lazy {
         requireContext().datastore.data
@@ -75,6 +84,10 @@ class CoinSelectFragment : Fragment(R.layout.fragment_coin_select) {
                 coinSelectAdapter.submitList(it)
             }
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            backPressedCallback
+        )
     }
 
     private fun initRecyclerView(list: List<String>) {

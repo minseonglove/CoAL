@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.SpinnerAdapter
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -21,6 +22,14 @@ class CoinSearchFragment : Fragment(R.layout.fragment_coin_search) {
 
     private val binding by viewBinding(FragmentCoinSearchBinding::bind)
     private val viewModel: SettingConditionViewModel by viewModels()
+
+    private val backPressedCallback by lazy {
+        object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.action_coinSearchFragment_to_alarmListFragment)
+            }
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,6 +63,9 @@ class CoinSearchFragment : Fragment(R.layout.fragment_coin_search) {
         binding.bottomButtonCoinsearch.buttonBottomAction.setOnClickListener {
             findNavController().navigate(R.id.action_coinSearchFragment_to_searchResultFragment)
         }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            backPressedCallback
+        )
     }
 
     private fun initSpinner() {

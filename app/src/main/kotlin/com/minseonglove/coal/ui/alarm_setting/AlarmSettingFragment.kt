@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.SpinnerAdapter
+import androidx.activity.OnBackPressedCallback
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -31,6 +32,15 @@ class AlarmSettingFragment : Fragment(R.layout.fragment_alarm_setting) {
     private val binding by viewBinding(FragmentAlarmSettingBinding::bind)
     private val alarmSettingViewModel: AlarmSettingViewModel by viewModels()
     private val conditionViewModel: SettingConditionViewModel by viewModels()
+
+    private val backPressedCallback by lazy {
+        object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.action_alarmSettingFragment_to_alarmListFragment)
+            }
+        }
+    }
+
 
     private val coinName: Flow<String> by lazy {
         requireContext().datastore.data
@@ -69,6 +79,10 @@ class AlarmSettingFragment : Fragment(R.layout.fragment_alarm_setting) {
             addAlarm()
             findNavController().navigate(R.id.action_alarmSettingFragment_to_alarmListFragment)
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            backPressedCallback
+        )
     }
 
     private fun initCoinName() {
