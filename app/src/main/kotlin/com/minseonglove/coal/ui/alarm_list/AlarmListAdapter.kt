@@ -90,7 +90,10 @@ class AlarmListAdapter(
                 )
                 // 시그널 사용
                 if (signalCondition != 0) {
-                    append("${signal}일 이동평균선 ${crossItems[signalCondition]}")
+                    when (indicator) {
+                        STOCHASTIC -> append("%K %D ${crossItems[signalCondition]}")
+                        else -> append("${signal}일 이동평균선 ${crossItems[signalCondition]}")
+                    }
                 }
             }.toString()
         }

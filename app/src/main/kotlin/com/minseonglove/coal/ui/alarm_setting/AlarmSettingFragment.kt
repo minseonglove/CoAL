@@ -14,11 +14,6 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.minseonglove.coal.R
 import com.minseonglove.coal.api.data.Constants
-import com.minseonglove.coal.api.data.Constants.Companion.MACD
-import com.minseonglove.coal.api.data.Constants.Companion.MOVING_AVERAGE
-import com.minseonglove.coal.api.data.Constants.Companion.PRICE
-import com.minseonglove.coal.api.data.Constants.Companion.RSI
-import com.minseonglove.coal.api.data.Constants.Companion.STOCHASTIC
 import com.minseonglove.coal.api.data.Constants.Companion.datastore
 import com.minseonglove.coal.databinding.FragmentAlarmSettingBinding
 import com.minseonglove.coal.ui.setting_condition.SettingConditionViewModel
@@ -35,7 +30,7 @@ class AlarmSettingFragment : Fragment(R.layout.fragment_alarm_setting) {
 
     private val binding by viewBinding(FragmentAlarmSettingBinding::bind)
     private val alarmSettingViewModel: AlarmSettingViewModel by viewModels()
-    private val settingConditionViewModel: SettingConditionViewModel by viewModels()
+    private val conditionViewModel: SettingConditionViewModel by viewModels()
 
     private val coinName: Flow<String> by lazy {
         requireContext().datastore.data
@@ -53,9 +48,8 @@ class AlarmSettingFragment : Fragment(R.layout.fragment_alarm_setting) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.apply {
-            settingConditionViewModel = this@AlarmSettingFragment.settingConditionViewModel
+            conditionViewModel = this@AlarmSettingFragment.conditionViewModel
             alarmSettingViewModel = this@AlarmSettingFragment.alarmSettingViewModel
             lifecycleOwner = viewLifecycleOwner
         }
@@ -85,8 +79,8 @@ class AlarmSettingFragment : Fragment(R.layout.fragment_alarm_setting) {
     private fun initCollector() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                settingConditionViewModel.indicator.collectLatest { indicator ->
-                    showSettingDisplay(indicator)
+                conditionViewModel.indicator.collectLatest {
+                    showSettingDisplay()
                 }
             }
         }
@@ -95,90 +89,15 @@ class AlarmSettingFragment : Fragment(R.layout.fragment_alarm_setting) {
     private fun addAlarm() {
         val minuteItems = resources.getStringArray(R.array.minute_items)
         alarmSettingViewModel.addAlarm(
-            settingConditionViewModel.getAlarm(
+            conditionViewModel.getAlarm(
                 alarmSettingViewModel.selectedCoin.value,
-                minuteItems[settingConditionViewModel.minutePos.value].toInt()
+                minuteItems[conditionViewModel.minutePos.value].toInt()
             )
         )
     }
 
-    private fun showSettingDisplay(indicator: Int) {
-        displayGoneAll()
-        with(binding.settingConditionAlarmsetting) {
-            when (indicator) {
-                PRICE -> {
-                    textviewSettingPrice.visibility = View.VISIBLE
-                    edittextSettingPrice.visibility = View.VISIBLE
-                    spinnerSettingPrice.visibility = View.VISIBLE
-                }
-                MOVING_AVERAGE -> {
-                    textviewSettingCandles.visibility = View.VISIBLE
-                    edittextSettingCandles.visibility = View.VISIBLE
-                    spinnerSettingMa.visibility = View.VISIBLE
-                }
-                RSI -> {
-                    textviewSettingCandles.visibility = View.VISIBLE
-                    textviewSettingValue.visibility = View.VISIBLE
-                    textviewSettingSignal.visibility = View.VISIBLE
-                    edittextSettingCandles.visibility = View.VISIBLE
-                    edittextSettingValue.visibility = View.VISIBLE
-                    edittextSettingValue.hint = getString(R.string.setting_condition_hint_percent)
-                    edittextSettingSignal.visibility = View.VISIBLE
-                    spinnerSettingValue.visibility = View.VISIBLE
-                    spinnerSettingSignal.visibility = View.VISIBLE
-                }
-                STOCHASTIC -> {
-                    textviewSettingStochastic.visibility = View.VISIBLE
-                    textviewSettingStochasticCross.visibility = View.VISIBLE
-                    textviewSettingValue.visibility = View.VISIBLE
-                    edittextSettingN.visibility = View.VISIBLE
-                    edittextSettingK.visibility = View.VISIBLE
-                    edittextSettingD.visibility = View.VISIBLE
-                    edittextSettingValue.visibility = View.VISIBLE
-                    edittextSettingValue.hint = getString(R.string.setting_condition_hint_percent)
-                    spinnerSettingValue.visibility = View.VISIBLE
-                    spinnerSettingStochasticCross.visibility = View.VISIBLE
-                }
-                MACD -> {
-                    textviewSettingMacd.visibility = View.VISIBLE
-                    textviewSettingValue.visibility = View.VISIBLE
-                    textviewSettingSignal.visibility = View.VISIBLE
-                    edittextSettingMacdN.visibility = View.VISIBLE
-                    edittextSettingMacdM.visibility = View.VISIBLE
-                    edittextSettingValue.visibility = View.VISIBLE
-                    edittextSettingValue.hint = getString(R.string.setting_condition_hint_value)
-                    edittextSettingSignal.visibility = View.VISIBLE
-                    spinnerSettingValue.visibility = View.VISIBLE
-                    spinnerSettingSignal.visibility = View.VISIBLE
-                }
-            }
-        }
-    }
-
-    private fun displayGoneAll() {
-        with(binding.settingConditionAlarmsetting) {
-            textviewSettingPrice.visibility = View.GONE
-            textviewSettingCandles.visibility = View.GONE
-            textviewSettingStochastic.visibility = View.GONE
-            textviewSettingStochasticCross.visibility = View.GONE
-            textviewSettingMacd.visibility = View.GONE
-            textviewSettingValue.visibility = View.GONE
-            textviewSettingSignal.visibility = View.GONE
-            edittextSettingPrice.visibility = View.GONE
-            edittextSettingCandles.visibility = View.GONE
-            edittextSettingD.visibility = View.GONE
-            edittextSettingK.visibility = View.GONE
-            edittextSettingMacdM.visibility = View.GONE
-            edittextSettingMacdN.visibility = View.GONE
-            edittextSettingN.visibility = View.GONE
-            edittextSettingSignal.visibility = View.GONE
-            edittextSettingValue.visibility = View.GONE
-            spinnerSettingStochasticCross.visibility = View.GONE
-            spinnerSettingValue.visibility = View.GONE
-            spinnerSettingSignal.visibility = View.GONE
-            spinnerSettingPrice.visibility = View.GONE
-            spinnerSettingMa.visibility = View.GONE
-        }
+    private fun showSettingDisplay() {
+        conditionViewModel.getVisible()
     }
 
     private fun initSpinner() {

@@ -4,7 +4,7 @@
     <string name="toolbar_button_description">navigation button</string>
     <!-- Strings related to bottomButton-->
     <string name="bottom_button_description">bottom action button</string>
-    <!-- Strings related to settingCondition-->
+    <!-- Strings related to condition-->
     <string name="minutes_spinner_description">choose minutes condition</string>
     <string name="indicator_spinner_description">choose indicator condition</string>
     <string name="price_spinner_description">choose price condition</string>
@@ -73,4 +73,12 @@
     <string name="coinselect_text_search_filter">검색 필터</string>
     <!-- Strings related to coinSearch -->
     <string name="coinsearch_toolbar_title">조건 검색</string>
+    <!-- Strings related to condition -->
+    <string name="setting_price">price</string>
+    <string name="setting_candle">candle</string>
+    <string name="setting_ma_condition">maCondition</string>
+    <string name="setting_stochastic">stochastic</string>
+    <string name="setting_macd">macd</string>
+    <string name="setting_value">value</string>
+    <string name="setting_signal">signal</string>
 </resources>
