@@ -1,7 +1,5 @@
 package com.minseonglove.coal.ui.setting_condition
 
-import android.util.Log
-import androidx.databinding.Bindable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.minseonglove.coal.db.MyAlarm

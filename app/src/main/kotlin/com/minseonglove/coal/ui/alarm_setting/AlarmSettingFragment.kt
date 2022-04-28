@@ -54,6 +54,13 @@ class AlarmSettingFragment : Fragment(R.layout.fragment_alarm_setting) {
             lifecycleOwner = viewLifecycleOwner
         }
 
+        initListener()
+        initCoinName()
+        initSpinner()
+        initCollector()
+    }
+
+    private fun initListener() {
         binding.toolbarAlarmsetting.buttonToolbarNavigation.setOnClickListener {
             findNavController().navigate(R.id.action_alarmSettingFragment_to_alarmListFragment)
         }
@@ -62,10 +69,6 @@ class AlarmSettingFragment : Fragment(R.layout.fragment_alarm_setting) {
             addAlarm()
             findNavController().navigate(R.id.action_alarmSettingFragment_to_alarmListFragment)
         }
-
-        initCoinName()
-        initSpinner()
-        initCollector()
     }
 
     private fun initCoinName() {

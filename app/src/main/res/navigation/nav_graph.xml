@@ -10,10 +10,14 @@
         android:label="AlarmListFragment" >
         <action
             android:id="@+id/action_alarmListFragment_to_alarmSettingFragment"
-            app:destination="@id/alarmSettingFragment" />
+            app:destination="@id/alarmSettingFragment"
+            app:enterAnim="@anim/animation_fragment_fadein"
+            app:exitAnim="@anim/animation_fragment_fadeout" />
         <action
             android:id="@+id/action_alarmListFragment_to_coinSearchFragment"
-            app:destination="@id/coinSearchFragment" />
+            app:destination="@id/coinSearchFragment"
+            app:enterAnim="@anim/animation_fragment_fadein"
+            app:exitAnim="@anim/animation_fragment_fadeout" />
     </fragment>
     <fragment
         android:id="@+id/coinSearchFragment"
@@ -21,7 +25,14 @@
         android:label="CoinSearchFragment" >
         <action
             android:id="@+id/action_coinSearchFragment_to_alarmListFragment"
-            app:destination="@id/alarmListFragment" />
+            app:destination="@id/alarmListFragment"
+            app:enterAnim="@anim/animation_fragment_fadein"
+            app:exitAnim="@anim/animation_fragment_fadeout" />
+        <action
+            android:id="@+id/action_coinSearchFragment_to_searchResultFragment"
+            app:destination="@id/searchResultFragment"
+            app:enterAnim="@anim/animation_fragment_fadein"
+            app:exitAnim="@anim/animation_fragment_fadeout" />
     </fragment>
     <fragment
         android:id="@+id/alarmSettingFragment"
@@ -29,10 +40,14 @@
         android:label="AlarmSettingFragment" >
         <action
             android:id="@+id/action_alarmSettingFragment_to_coinSelectFragment"
-            app:destination="@id/coinSelectFragment" />
+            app:destination="@id/coinSelectFragment"
+            app:enterAnim="@anim/animation_fragment_fadein"
+            app:exitAnim="@anim/animation_fragment_fadeout" />
         <action
             android:id="@+id/action_alarmSettingFragment_to_alarmListFragment"
-            app:destination="@id/alarmListFragment" />
+            app:destination="@id/alarmListFragment"
+            app:enterAnim="@anim/animation_fragment_fadein"
+            app:exitAnim="@anim/animation_fragment_fadeout" />
     </fragment>
     <fragment
         android:id="@+id/coinSelectFragment"
@@ -43,6 +58,18 @@
             app:destination="@id/alarmSettingFragment"
             app:popUpTo="@id/coinSelectFragment"
             app:popUpToInclusive="true"
-            app:launchSingleTop="true" />
+            app:launchSingleTop="true"
+            app:enterAnim="@anim/animation_fragment_fadein"
+            app:exitAnim="@anim/animation_fragment_fadeout" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.minseonglove.coal.ui.search_result.SearchResultFragment"
+        android:label="SearchResultFragment" >
+        <action
+            android:id="@+id/action_searchResultFragment_to_coinSearchFragment"
+            app:destination="@id/coinSearchFragment"
+            app:enterAnim="@anim/animation_fragment_fadein"
+            app:exitAnim="@anim/animation_fragment_fadeout" />
     </fragment>
 </navigation>
