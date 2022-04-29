@@ -84,10 +84,14 @@ class AlarmListFragment : Fragment() {
             alarmListAdapter = AlarmListAdapter(
                 resources.getStringArray(R.array.indicator_items),
                 resources.getStringArray(R.array.up_down_items),
-                resources.getStringArray(R.array.cross_items)
-            ) { state, id ->
-                viewModel.updateRunningState(state, id)
-            }.apply {
+                resources.getStringArray(R.array.cross_items),
+                updateRunningState = {state, id ->
+                    viewModel.updateRunningState(state, id)
+                },
+                deleteAlarmById = {id ->
+                    viewModel.deleteById(id)
+                }
+            ).apply {
                 submitList(alarmList)
             }
             binding.recyclerAlarmlist.apply {

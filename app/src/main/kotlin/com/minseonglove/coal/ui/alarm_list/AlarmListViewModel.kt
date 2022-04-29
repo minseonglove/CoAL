@@ -29,9 +29,9 @@ class AlarmListViewModel @Inject constructor(
         }
     }
 
-    fun deleteAll() {
+    fun deleteById(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteAll()
+            repository.deleteById(id)
         }
     }
 }
