@@ -123,7 +123,7 @@ class SettingConditionViewModel : ViewModel() {
         // 값이 올바르게 들어갔는지
         if (indicator.value != MOVING_AVERAGE) {
             val validationValue = limitValue.value?.toDoubleOrNull() ?: -1.0
-            if (validationValue <= 0) {
+            if (validationValue <= 0 && indicator.value != MACD) {
                 return when (indicator.value) {
                     PRICE -> "올바른 가격을 입력해주세요!"
                     else -> "올바른 value를 입력해주세요!"
