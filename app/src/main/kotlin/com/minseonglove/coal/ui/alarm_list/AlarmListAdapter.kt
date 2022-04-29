@@ -67,7 +67,7 @@ class AlarmListAdapter(
                 }
 
                 constraintlayoutAlarmlist.setOnLongClickListener {
-                    if(switchAlarmlistRunning.visibility == View.VISIBLE) {
+                    if (switchAlarmlistRunning.visibility == View.VISIBLE) {
                         popUpDeleteButton()
                     } else {
                         popUpSwitch()
@@ -75,7 +75,7 @@ class AlarmListAdapter(
                 }
 
                 constraintlayoutAlarmlist.setOnClickListener {
-                    if(switchAlarmlistRunning.visibility == View.GONE) {
+                    if (switchAlarmlistRunning.visibility == View.GONE) {
                         popUpSwitch()
                     }
                 }
@@ -129,11 +129,11 @@ class AlarmListAdapter(
                 Color.parseColor(startColor), Color.parseColor(endColor), Shader.TileMode.REPEAT
             )
 
-        //애니메이션 로더
+        // 애니메이션 로더
         private fun getAnimation(animationId: Int) =
             AnimationUtils.loadAnimation(binding.root.context, animationId)
 
-        //애니메이션 리스너
+        // 애니메이션 리스너
         private fun setAnimation(
             button1: View,
             button2: View,
@@ -156,11 +156,15 @@ class AlarmListAdapter(
         private fun popUpSwitch(): Boolean {
             with(binding) {
                 getAnimation(R.anim.animation_delete_button_shrink).let { anim ->
-                    anim.setAnimationListener(setAnimation(
-                        buttonAlarmlistDelete,
-                        switchAlarmlistRunning,
-                        getAnimation(R.anim.animation_xscale_out)
-                    ))
+                    anim.setAnimationListener(
+                        setAnimation(
+                            buttonAlarmlistDelete,
+                            switchAlarmlistRunning,
+                            getAnimation(
+                                R.anim.animation_xscale_out
+                            )
+                        )
+                    )
                     buttonAlarmlistDelete.startAnimation(anim)
                 }
             }
@@ -171,11 +175,13 @@ class AlarmListAdapter(
         private fun popUpDeleteButton(): Boolean {
             with(binding) {
                 getAnimation(R.anim.animation_xscale_in).let { anim ->
-                    anim.setAnimationListener(setAnimation(
-                        switchAlarmlistRunning,
-                        buttonAlarmlistDelete,
-                        getAnimation(R.anim.animation_delete_button_popup)
-                    ))
+                    anim.setAnimationListener(
+                        setAnimation(
+                            switchAlarmlistRunning,
+                            buttonAlarmlistDelete,
+                            getAnimation(R.anim.animation_delete_button_popup)
+                        )
+                    )
                     switchAlarmlistRunning.startAnimation(anim)
                 }
             }
