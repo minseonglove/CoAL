@@ -93,6 +93,13 @@ class SettingConditionViewModel : ViewModel() {
         _macdVisible.emit(8)
         _valueVisible.emit(8)
         _signalVisible.emit(8)
+        _signalCondition.emit(0)
+        candle.emit(null)
+        signal.emit(null)
+        limitValue.emit(null)
+        stochasticK.emit(null)
+        stochasticD.emit(null)
+        macdM.emit(null)
     }
 
     fun getAlarm(coinName: String, minute: Int): MyAlarm =
@@ -111,4 +118,45 @@ class SettingConditionViewModel : ViewModel() {
             signalCondition.value,
             true
         )
+
+    fun validateCondition(): String {
+        // 값이 올바르게 들어갔는지
+        if (indicator.value != MOVING_AVERAGE) {
+            val validationValue = limitValue.value?.toDoubleOrNull() ?: -1.0
+            if (validationValue <= 0) {
+                return when (indicator.value) {
+                    PRICE -> "올바른 가격을 입력해주세요!"
+                    else -> "올바른 value를 입력해주세요!"
+                }
+            }
+            if (validationValue >= 100 && (indicator.value != PRICE || indicator.value != MACD)) {
+                return "value는 100 이상 입력할 수 없습니다!"
+            }
+        }
+        // 캔들을 올바르게 입력했는지
+        if (indicator.value != PRICE) {
+            val validationValue = candle.value?.toIntOrNull() ?: -1
+            if (validationValue <= 0) {
+                return "올바른 캔들을 입력해주세요!"
+            }
+            if (validationValue >= 100) {
+                return "캔들은 100 이상 입력할 수 없습니다!"
+            }
+        }
+        // signal을 올바르게 입력했는지
+        if (signalCondition.value != 0 && indicator.value != STOCHASTIC) {
+            val validationValue = signal.value?.toIntOrNull() ?: -1
+            if (validationValue <= 0) {
+                return "올바른 시그널 값을 입력해주세요!"
+            }
+            if (validationValue >= 100) {
+                return "시그널 값은 100 이상 입력할 수 없습니다!"
+            }
+        }
+        return VALIDATION_OK
+    }
+
+    companion object {
+        const val VALIDATION_OK = "success"
+    }
 }

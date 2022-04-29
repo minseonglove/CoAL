@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.SpinnerAdapter
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.datastore.preferences.core.emptyPreferences
@@ -20,6 +21,7 @@ import com.minseonglove.coal.api.data.Constants
 import com.minseonglove.coal.api.data.Constants.Companion.datastore
 import com.minseonglove.coal.databinding.FragmentAlarmSettingBinding
 import com.minseonglove.coal.ui.setting_condition.SettingConditionViewModel
+import com.minseonglove.coal.ui.setting_condition.SettingConditionViewModel.Companion.VALIDATION_OK
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -98,8 +100,7 @@ class AlarmSettingFragment : Fragment() {
         }
 
         binding.bottomButtonAlarmsetting.buttonBottomAction.setOnClickListener {
-            addAlarm()
-            findNavController().navigate(R.id.action_alarmSettingFragment_to_alarmListFragment)
+            validateCondition()
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(
@@ -160,6 +161,17 @@ class AlarmSettingFragment : Fragment() {
 
     private fun createAdapter(items: Array<String>): SpinnerAdapter =
         ArrayAdapter(requireContext(), R.layout.spinner_item, items)
+
+    private fun validateCondition() {
+        binding.conditionViewModel!!.validateCondition().let {
+            if (it == VALIDATION_OK) {
+                addAlarm()
+                findNavController().navigate(R.id.action_alarmSettingFragment_to_alarmListFragment)
+            } else {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
