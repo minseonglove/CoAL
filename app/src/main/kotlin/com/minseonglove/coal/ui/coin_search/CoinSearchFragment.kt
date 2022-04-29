@@ -20,7 +20,7 @@ import com.minseonglove.coal.ui.setting_condition.SettingConditionViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class CoinSearchFragment : Fragment(R.layout.fragment_coin_search) {
+class CoinSearchFragment : Fragment() {
 
     private var _binding: FragmentCoinSearchBinding? = null
 

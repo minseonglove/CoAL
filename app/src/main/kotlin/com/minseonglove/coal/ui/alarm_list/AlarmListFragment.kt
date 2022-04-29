@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class AlarmListFragment : Fragment(R.layout.fragment_alarm_list) {
+class AlarmListFragment : Fragment() {
 
     private lateinit var alarmListAdapter: AlarmListAdapter
 

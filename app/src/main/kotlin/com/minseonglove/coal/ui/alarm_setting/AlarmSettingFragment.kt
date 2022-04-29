@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 
 @AndroidEntryPoint
-class AlarmSettingFragment : Fragment(R.layout.fragment_alarm_setting) {
+class AlarmSettingFragment : Fragment() {
 
     private var _binding: FragmentAlarmSettingBinding? = null
 

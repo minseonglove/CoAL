@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.minseonglove.coal.R
 import com.minseonglove.coal.databinding.FragmentSearchResultBinding
 
-class SearchResultFragment : Fragment(R.layout.fragment_search_result) {
+class SearchResultFragment : Fragment() {
 
     private var _binding: FragmentSearchResultBinding? = null
 

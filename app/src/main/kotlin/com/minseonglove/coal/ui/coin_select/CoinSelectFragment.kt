@@ -27,7 +27,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-class CoinSelectFragment : Fragment(R.layout.fragment_coin_select) {
+class CoinSelectFragment : Fragment() {
 
     private lateinit var coinSelectAdapter: CoinSelectAdapter
 
