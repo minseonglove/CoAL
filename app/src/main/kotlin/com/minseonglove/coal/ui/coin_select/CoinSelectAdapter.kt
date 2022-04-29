@@ -12,9 +12,14 @@ class CoinSelectAdapter(
     private val itemClick: (String) -> Unit
 ) : ListAdapter<String, CoinSelectAdapter.ViewHolder>(diffUtil) {
 
-    class ViewHolder(val binding: RecyclerCoinListBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(
+        val binding: RecyclerCoinListBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: String) {
             binding.textviewCoinList.text = item
+            binding.constraintlayoutCoinList.setOnClickListener {
+                itemClick(item)
+            }
         }
     }
 
@@ -26,12 +31,7 @@ class CoinSelectAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        with(holder) {
-            bind(getItem(position))
-            binding.constraintlayoutCoinList.setOnClickListener {
-                itemClick(getItem(position))
-            }
-        }
+        holder.bind(getItem(position))
     }
 
     companion object {

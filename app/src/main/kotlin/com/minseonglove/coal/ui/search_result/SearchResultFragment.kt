@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.minseonglove.coal.R
 import com.minseonglove.coal.databinding.FragmentSearchResultBinding
 
 class SearchResultFragment : Fragment() {

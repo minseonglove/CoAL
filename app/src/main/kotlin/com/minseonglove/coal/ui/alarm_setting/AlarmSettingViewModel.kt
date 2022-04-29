@@ -20,8 +20,8 @@ class AlarmSettingViewModel @Inject constructor(
 
     val selectedCoin: StateFlow<String> get() = _selectedCoin
 
-    fun setCoinName(coinName: String) {
-        _selectedCoin.value = coinName
+    suspend fun setCoinName(coinName: String) {
+        _selectedCoin.emit(coinName)
     }
 
     fun addAlarm(alarm: MyAlarm) {

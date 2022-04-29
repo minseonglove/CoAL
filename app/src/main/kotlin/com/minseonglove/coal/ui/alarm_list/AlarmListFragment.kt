@@ -82,19 +82,20 @@ class AlarmListFragment : Fragment() {
     private fun updateRecyclerView(alarmList: List<MyAlarm>) {
         if (!::alarmListAdapter.isInitialized) {
             alarmListAdapter = AlarmListAdapter(
-                alarmList,
                 resources.getStringArray(R.array.indicator_items),
                 resources.getStringArray(R.array.up_down_items),
                 resources.getStringArray(R.array.cross_items)
             ) { state, id ->
                 viewModel.updateRunningState(state, id)
+            }.apply {
+                submitList(alarmList)
             }
             binding.recyclerAlarmlist.apply {
                 layoutManager = LinearLayoutManager(activity)
                 adapter = alarmListAdapter
             }
         } else {
-            alarmListAdapter.updateItems(alarmList)
+            alarmListAdapter.submitList(alarmList)
         }
     }
 
