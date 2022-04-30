@@ -387,9 +387,9 @@
             android:layout_marginEnd="8dp"
             android:background="@drawable/box_edittext"
             android:gravity="center"
-            android:hint="@string/setting_condition_hint_percent"
+            android:hint="@{conditionViewModel.indicator == 4 ? @string/setting_condition_hint_value : @string/setting_condition_hint_percent}"
             android:importantForAutofill="no"
-            android:inputType="number"
+            android:inputType="numberSigned"
             android:text="@={conditionViewModel.limitValue}"
             android:textColorHint="#757575"
             android:textSize="14sp"
@@ -397,7 +397,7 @@
             app:layout_constraintEnd_toStartOf="@+id/spinner_setting_value"
             app:layout_constraintStart_toEndOf="@+id/textview_setting_value"
             app:layout_constraintTop_toBottomOf="@+id/edittext_setting_macd_n"
-            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck,SpeakableTextPresentCheck" />
 
         <Spinner
             android:id="@+id/spinner_setting_value"

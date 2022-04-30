@@ -79,6 +79,7 @@ class SettingConditionViewModel : ViewModel() {
                 }
                 MACD -> {
                     _macdVisible.emit(0)
+                    _valueVisible.emit(0)
                     _signalVisible.emit(0)
                 }
             }
