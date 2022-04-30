@@ -12,7 +12,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.graphics.drawable.Icon
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
@@ -28,10 +27,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.util.Base64
 import java.util.Calendar
 import javax.inject.Inject
 import kotlin.random.Random
@@ -117,7 +114,7 @@ class WatchIndicatorService : Service() {
     }
 
     private fun initRunningAlarm() {
-        if(runningAlarm.isNotEmpty()) {
+        if (runningAlarm.isNotEmpty()) {
             runningAlarm.forEach {
                 it.cancelCollect()
             }
