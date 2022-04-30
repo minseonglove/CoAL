@@ -68,8 +68,8 @@ class AlarmListFragment : Fragment() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.getAlarmList.collect {
+                    updateRecyclerView(it)
                     if (it.isNotEmpty()) {
-                        updateRecyclerView(it)
                         it.forEach { alarm ->
                             Log.d("coin", alarm.toString())
                         }
