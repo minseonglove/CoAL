@@ -73,6 +73,10 @@
     <string name="coinselect_text_search_filter">검색 필터</string>
     <!-- Strings related to coinSearch -->
     <string name="coinsearch_toolbar_title">조건 검색</string>
+    <!-- Strings related to coinSearchResult -->
+    <string name="search_result_toolbar_title">검색 결과</string>
+    <string name="search_result_toolbar_setting">검색 조건</string>
+    <string name="search_result_toolbar_progress">0 / 0</string>
     <!-- Strings related to condition -->
     <string name="setting_price">price</string>
     <string name="setting_candle">candle</string>
