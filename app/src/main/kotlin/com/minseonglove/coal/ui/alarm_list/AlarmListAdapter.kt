@@ -14,11 +14,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.minseonglove.coal.R
-import com.minseonglove.coal.api.data.Constants.Companion.MACD
-import com.minseonglove.coal.api.data.Constants.Companion.MOVING_AVERAGE
-import com.minseonglove.coal.api.data.Constants.Companion.PRICE
-import com.minseonglove.coal.api.data.Constants.Companion.RSI
-import com.minseonglove.coal.api.data.Constants.Companion.STOCHASTIC
+import com.minseonglove.coal.api.data.Constants.makeCoinNameString
+import com.minseonglove.coal.api.data.Constants.makeConditionString
 import com.minseonglove.coal.databinding.RecyclerAlarmListBinding
 import com.minseonglove.coal.db.MyAlarm
 
@@ -36,12 +33,12 @@ class AlarmListAdapter(
         fun bind(item: MyAlarm) {
             with(binding) {
                 textviewAlarmlistName.apply {
-                    text = makeCoinNameString(item)
+                    text = makeCoinNameString(item.coinName, item.minute)
                     paint.shader = textGradient(this, "#80000000", "#FF000000")
                 }
 
                 textviewAlarmlistCondition.apply {
-                    text = makeConditionString(item)
+                    text = makeConditionString(item, indicatorItems, upDownItems, crossItems)
                     paint.shader = textGradient(this, "#80196065", "#FF196065")
                 }
 
@@ -79,46 +76,6 @@ class AlarmListAdapter(
                         popUpSwitch()
                     }
                 }
-            }
-        }
-        // 코인 이름과 분봉
-        private fun makeCoinNameString(alarm: MyAlarm): String =
-            "${alarm.coinName.substringBefore('(')} ${alarm.minute}분"
-
-        // 조건 내용
-        private fun makeConditionString(alarm: MyAlarm): String {
-            with(alarm) {
-                return StringBuilder(indicatorItems[indicator]).apply {
-                    appendLine(
-                        when (indicator) {
-                            PRICE -> {
-                                " $value ${coinName.substringAfter('(').substringBefore('-')} " +
-                                    "${upDownItems[valueCondition]}돌파"
-                            }
-                            MOVING_AVERAGE -> {
-                                " ($candle) ${upDownItems[valueCondition]}돌파"
-                            }
-                            RSI -> {
-                                " ($candle) $value% ${upDownItems[valueCondition]}돌파"
-                            }
-                            STOCHASTIC -> {
-                                " ($candle,$stochasticK,$stochasticD) " +
-                                    "$value% ${upDownItems[valueCondition]}돌파"
-                            }
-                            MACD -> {
-                                " ($candle,$macdM) $value ${upDownItems[valueCondition]}돌파"
-                            }
-                            else -> {}
-                        }
-                    )
-                    // 시그널 사용
-                    if (signalCondition != 0) {
-                        when (indicator) {
-                            STOCHASTIC -> append("%K %D ${crossItems[signalCondition]}")
-                            else -> append("${signal}일 이동평균선 ${crossItems[signalCondition]}")
-                        }
-                    }
-                }.toString()
             }
         }
 
@@ -203,10 +160,10 @@ class AlarmListAdapter(
     companion object {
         val diffUtil = object : DiffUtil.ItemCallback<MyAlarm>() {
             override fun areItemsTheSame(oldItem: MyAlarm, newItem: MyAlarm) =
-                oldItem.id == newItem.id
+                oldItem.id == newItem.id && oldItem.isRunning == newItem.isRunning
 
             override fun areContentsTheSame(oldItem: MyAlarm, newItem: MyAlarm) =
-                oldItem.id == newItem.id
+                oldItem.id == newItem.id && oldItem.isRunning == newItem.isRunning
         }
     }
 }

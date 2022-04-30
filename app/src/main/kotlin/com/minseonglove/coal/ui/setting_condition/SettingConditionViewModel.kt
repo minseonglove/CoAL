@@ -2,11 +2,11 @@ package com.minseonglove.coal.ui.setting_condition
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.minseonglove.coal.api.data.Constants.Companion.MACD
-import com.minseonglove.coal.api.data.Constants.Companion.MOVING_AVERAGE
-import com.minseonglove.coal.api.data.Constants.Companion.PRICE
-import com.minseonglove.coal.api.data.Constants.Companion.RSI
-import com.minseonglove.coal.api.data.Constants.Companion.STOCHASTIC
+import com.minseonglove.coal.api.data.Constants.MACD
+import com.minseonglove.coal.api.data.Constants.MOVING_AVERAGE
+import com.minseonglove.coal.api.data.Constants.PRICE
+import com.minseonglove.coal.api.data.Constants.RSI
+import com.minseonglove.coal.api.data.Constants.STOCHASTIC
 import com.minseonglove.coal.db.MyAlarm
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -129,7 +129,7 @@ class SettingConditionViewModel : ViewModel() {
                     else -> "올바른 value를 입력해주세요!"
                 }
             }
-            if (validationValue >= 100 && (indicator.value != PRICE || indicator.value != MACD)) {
+            if (validationValue >= 100 && indicator.value != PRICE && indicator.value != MACD) {
                 return "value는 100 이상 입력할 수 없습니다!"
             }
         }

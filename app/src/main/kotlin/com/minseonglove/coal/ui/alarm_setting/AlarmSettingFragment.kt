@@ -18,7 +18,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.minseonglove.coal.R
 import com.minseonglove.coal.api.data.Constants
-import com.minseonglove.coal.api.data.Constants.Companion.datastore
+import com.minseonglove.coal.api.data.Constants.datastore
 import com.minseonglove.coal.databinding.FragmentAlarmSettingBinding
 import com.minseonglove.coal.ui.setting_condition.SettingConditionViewModel
 import com.minseonglove.coal.ui.setting_condition.SettingConditionViewModel.Companion.VALIDATION_OK

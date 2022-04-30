@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.minseonglove.coal.R
 import com.minseonglove.coal.api.data.Constants
-import com.minseonglove.coal.api.data.Constants.Companion.datastore
+import com.minseonglove.coal.api.data.Constants.datastore
 import com.minseonglove.coal.databinding.FragmentCoinSelectBinding
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

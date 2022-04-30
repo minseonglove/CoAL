@@ -16,7 +16,7 @@ class RebootReceiver : BroadcastReceiver() {
                     context.startForegroundService(it)
                 }
             } else {
-                Intent(context, WatchService::class.java).let {
+                Intent(context, WatchIndicatorService::class.java).let {
                     context.startService(it)
                 }
             }

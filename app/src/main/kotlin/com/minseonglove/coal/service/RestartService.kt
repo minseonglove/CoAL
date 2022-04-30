@@ -1,5 +1,6 @@
 package com.minseonglove.coal.service
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -8,6 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.minseonglove.coal.MainActivity
 import com.minseonglove.coal.R
@@ -18,12 +20,14 @@ class RestartService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-
+        Log.d("coin", "Restart Service")
+        @SuppressLint("UnspecifiedImmutableFlag")
         val pendingIntent = PendingIntent.getActivity(
             this,
             0,
             Intent(this, MainActivity::class.java),
-            0)
+            0
+        )
 
         val builder = NotificationCompat.Builder(this, "default").apply {
             setSmallIcon(R.mipmap.ic_logo_foreground)
@@ -45,7 +49,7 @@ class RestartService : Service() {
 
         startForeground(9, builder.build())
 
-        startService(Intent(this, WatchService::class.java))
+        startService(Intent(this, WatchIndicatorService::class.java))
         stopForeground(true)
         stopSelf()
 

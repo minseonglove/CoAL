@@ -1,6 +1,6 @@
 package com.minseonglove.coal.api.di
 
-import com.minseonglove.coal.api.data.Constants.Companion.BASE_URL
+import com.minseonglove.coal.api.data.Constants.BASE_URL
 import com.minseonglove.coal.api.repository.CheckCandleRepository
 import com.minseonglove.coal.api.repository.CoinListRepository
 import com.minseonglove.coal.api.service.CheckCandleService
