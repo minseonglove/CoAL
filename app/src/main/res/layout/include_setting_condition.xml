@@ -408,6 +408,8 @@
             android:contentDescription="@string/value_condition_spinner_description"
             android:spinnerMode="dialog"
             android:visibility="@{conditionViewModel.valueVisible}"
+            android:onItemSelected="@{(p,v,pos,id) -> conditionViewModel.setSpinner(2,pos)}"
+            android:selectedItemPosition="@{conditionViewModel.valueCondition}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/edittext_setting_value"
             app:layout_constraintTop_toBottomOf="@+id/edittext_setting_macd_m"
