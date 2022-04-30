@@ -76,10 +76,10 @@ object CalcIndicatorUtil {
                     minPrice = lowPrice
                     maxPrice = highPrice
                 }
-                for (m in j until j + n) { // stoch
+                for (m in j + 1 until j + n) { // stoch
                     candleList[m].apply { // 최고가 최저가 저장
                         minPrice = if (minPrice > lowPrice) lowPrice else minPrice
-                        maxPrice = if (maxPrice > highPrice) highPrice else maxPrice
+                        maxPrice = if (maxPrice < highPrice) highPrice else maxPrice
                     }
                 }
                 // 이동평균을 내기 위한 stoch값계산
@@ -89,7 +89,7 @@ object CalcIndicatorUtil {
             // stoch slow값 계산
             stochasticMA += currentStochastic / k
             if (i == 0) {
-                stochastic = currentStochastic
+                stochastic = stochasticMA
             }
         }
         return Pair(stochastic, stochasticMA / d)
@@ -111,4 +111,14 @@ object CalcIndicatorUtil {
         }
         return shortMA - longMA
     }
+
+    // 조건 검증
+    fun validateValue(
+        resultValue: Double,
+        settingValue: Double,
+        condition: Int,
+        isSignal: Int = 0
+    ): Boolean =
+        (resultValue > settingValue && condition == 0 + isSignal) ||
+            (resultValue < settingValue && condition == 1 + isSignal)
 }

@@ -10,6 +10,7 @@ import com.minseonglove.coal.api.data.Constants.makeMarketCode
 import com.minseonglove.coal.api.dto.CandleInfo
 import com.minseonglove.coal.api.repository.CheckCandleRepository
 import com.minseonglove.coal.db.MyAlarm
+import com.minseonglove.coal.service.CalcIndicatorUtil.validateValue
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import kotlinx.coroutines.CoroutineScope
@@ -189,15 +190,6 @@ class WatchIndicatorRepository(
             }
         }
     }
-
-    private fun validateValue(
-        resultValue: Double,
-        settingValue: Double,
-        condition: Int,
-        isSignal: Int = 0
-    ): Boolean =
-        (resultValue > settingValue && condition == 0 + isSignal) ||
-            (resultValue < settingValue && condition == 1 + isSignal)
 
     private fun validationComplete() {
         updateRunningState(false, alarm.id)
