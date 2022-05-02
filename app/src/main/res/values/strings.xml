@@ -76,7 +76,7 @@
     <!-- Strings related to coinSearchResult -->
     <string name="search_result_toolbar_title">검색 결과</string>
     <string name="search_result_toolbar_setting">검색 조건</string>
-    <string name="search_result_toolbar_progress">0 / 0</string>
+    <string name="search_result_toolbar_progress">%1$d%% (%2$d / %3$d)</string>
     <!-- Strings related to condition -->
     <string name="setting_price">price</string>
     <string name="setting_candle">candle</string>

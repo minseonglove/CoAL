@@ -160,8 +160,12 @@ class SearchResultFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.searchCount.collectLatest {
                     val progress = (it / viewModel.totalCount.value.toDouble() * 100).toInt()
-                    binding.textviewSearchResultProgress.text =
-                        "$progress% (${viewModel.totalCount.value} / $it)"
+                    binding.textviewSearchResultProgress.text = getString(
+                        R.string.search_result_toolbar_progress,
+                        progress,
+                        viewModel.totalCount.value,
+                        it
+                    )
                 }
             }
         }
