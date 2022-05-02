@@ -15,4 +15,4 @@ data class CoinSearchDto(
     val valueCondition: Int,
     val signal: Int?,
     val signalCondition: Int,
-): Parcelable
+) : Parcelable

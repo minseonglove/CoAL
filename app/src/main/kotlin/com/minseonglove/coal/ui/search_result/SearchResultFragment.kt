@@ -52,7 +52,6 @@ class SearchResultFragment : Fragment() {
     private val binding get() = _binding!!
     private val args: SearchResultFragmentArgs by navArgs()
     private val viewModel: SearchResultViewModel by viewModels()
-
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             searchResultService = (service as SearchResultService.SearchResultBinder).getService()
@@ -105,25 +104,25 @@ class SearchResultFragment : Fragment() {
         with(args.condition) {
             binding.textviewSearchResultCondition.text =
                 makeConditionString(
-                MyAlarm(
-                    0,
-                    "",
-                    minute,
-                    indicator,
-                    candle,
-                    stochasticK,
-                    stochasticD,
-                    macdM,
-                    value,
-                    valueCondition,
-                    signal,
-                    signalCondition,
-                    true
-                ),
-                resources.getStringArray(R.array.indicator_items),
-                resources.getStringArray(R.array.up_down_items),
-                resources.getStringArray(R.array.cross_items)
-            )
+                    MyAlarm(
+                        0,
+                        "",
+                        minute,
+                        indicator,
+                        candle,
+                        stochasticK,
+                        stochasticD,
+                        macdM,
+                        value,
+                        valueCondition,
+                        signal,
+                        signalCondition,
+                        true
+                    ),
+                    resources.getStringArray(R.array.indicator_items),
+                    resources.getStringArray(R.array.up_down_items),
+                    resources.getStringArray(R.array.cross_items)
+                )
         }
         initRecyclerView()
         initCollector()

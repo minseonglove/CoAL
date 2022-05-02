@@ -134,7 +134,7 @@ class WatchIndicatorRepository(
         signal: Int?,
         signalCondition: Int
     ) {
-        if(CalcIndicatorUtil.validateRSI(
+        if (CalcIndicatorUtil.validateRSI(
                 list,
                 signalArray,
                 candle,

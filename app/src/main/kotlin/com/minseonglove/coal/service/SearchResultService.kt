@@ -60,7 +60,7 @@ class SearchResultService : Service() {
         signalArray = if (isSignal) Array(101) { 0.0 } else Array(1) { 0.0 }
         searchJob = CoroutineScope(Dispatchers.IO).launch {
             for (i in coinList.indices) {
-                mCallback.updateCount(i+1)
+                mCallback.updateCount(i + 1)
                 currentCoin = coinList[i]
                 val candles = CalcIndicatorUtil.getCandleCount(
                     condition.indicator,
@@ -147,7 +147,7 @@ class SearchResultService : Service() {
         signal: Int?,
         signalCondition: Int
     ) {
-        if(CalcIndicatorUtil.validateRSI(
+        if (CalcIndicatorUtil.validateRSI(
                 list,
                 signalArray,
                 candle,

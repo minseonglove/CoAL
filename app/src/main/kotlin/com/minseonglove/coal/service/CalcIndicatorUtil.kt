@@ -248,7 +248,6 @@ object CalcIndicatorUtil {
         }
         return false
     }
-    
     // 조건 검증
     private fun validateValue(
         resultValue: Double,
