@@ -34,17 +34,4 @@ class SearchResultViewModel : ViewModel() {
     fun setTotalCount(count: Int) {
         _totalCount.value = count
     }
-
-    /*
-    private fun event(event: SearchResultEvent) {
-        viewModelScope.launch {
-
-        }
-    }
-
-    sealed class SearchResultEvent {
-        data class updateList(val list: List<String>) : SearchResultEvent()
-        data class updateCount(val count: Int) : SearchResultEvent()
-    }
-     */
 }

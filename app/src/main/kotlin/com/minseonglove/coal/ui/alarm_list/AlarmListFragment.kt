@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -25,9 +28,18 @@ class AlarmListFragment : Fragment() {
     private lateinit var alarmListAdapter: AlarmListAdapter
 
     private var _binding: FragmentAlarmListBinding? = null
+    private var backPressedTime = 0L
 
     private val binding get() = _binding!!
     private val viewModel: AlarmListViewModel by viewModels()
+
+    private val backPressedCallback by lazy {
+        object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                exitApp()
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +63,25 @@ class AlarmListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initNavigation()
         collectAlarmList()
+        requireActivity().onBackPressedDispatcher.addCallback(backPressedCallback)
+    }
+
+    private fun exitApp() {
+        System.currentTimeMillis().let { currentTime ->
+            if (currentTime > backPressedTime + FINISH_TIME_OUT) {
+                AnimationUtils.loadAnimation(requireContext(), R.anim.animation_shake).let {
+                    binding.constraintlayoutAlarmlist.startAnimation(it)
+                }
+                backPressedTime = currentTime
+                Toast.makeText(
+                    requireContext(),
+                    "한 번 더 누르면 종료 됩니다.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                requireActivity().finishAffinity()
+            }
+        }
     }
 
     private fun initNavigation() {
@@ -100,6 +131,11 @@ class AlarmListFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        backPressedCallback.remove()
         _binding = null
+    }
+
+    companion object {
+        const val FINISH_TIME_OUT = 2500
     }
 }

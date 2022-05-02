@@ -9,6 +9,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintlayout_alarmlist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/alarm_list_background">

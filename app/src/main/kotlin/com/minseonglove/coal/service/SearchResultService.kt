@@ -16,6 +16,7 @@ import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,6 +29,7 @@ class SearchResultService : Service() {
     private lateinit var condition: CoinSearchDto
     private lateinit var signalArray: Array<Double>
     private lateinit var mCallback: ICallBack
+    private lateinit var searchJob: Job
 
     private val binder = SearchResultBinder()
     private val resultList = mutableListOf<String>()
@@ -56,7 +58,7 @@ class SearchResultService : Service() {
         Logger.i("bound service 시작")
         val isSignal = condition.signalCondition != 0
         signalArray = if (isSignal) Array(101) { 0.0 } else Array(1) { 0.0 }
-        CoroutineScope(Dispatchers.IO).launch {
+        searchJob = CoroutineScope(Dispatchers.IO).launch {
             for (i in coinList.indices) {
                 mCallback.updateCount(i+1)
                 currentCoin = coinList[i]
@@ -210,6 +212,11 @@ class SearchResultService : Service() {
     private fun addList() {
         resultList.add(currentCoin)
         mCallback.updateList(resultList.toList())
+    }
+
+    override fun onUnbind(intent: Intent?): Boolean {
+        searchJob.cancel()
+        return super.onUnbind(intent)
     }
 
     companion object {

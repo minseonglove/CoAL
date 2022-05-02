@@ -9,7 +9,10 @@ import android.os.IBinder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.fragment.app.Fragment
@@ -28,10 +31,12 @@ import com.minseonglove.coal.api.data.Constants.makeConditionString
 import com.minseonglove.coal.databinding.FragmentSearchResultBinding
 import com.minseonglove.coal.db.MyAlarm
 import com.minseonglove.coal.service.SearchResultService
+import com.minseonglove.coal.ui.alarm_list.AlarmListFragment
 import com.minseonglove.coal.ui.coin_select.CoinListAdapter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -40,6 +45,7 @@ class SearchResultFragment : Fragment() {
 
     private lateinit var searchResultAdapter: CoinListAdapter
     private lateinit var searchResultService: SearchResultService
+    private var backPressedTime = 0L
     private var _binding: FragmentSearchResultBinding? = null
     private var isBound = false
 
@@ -74,6 +80,14 @@ class SearchResultFragment : Fragment() {
             }
     }
 
+    private val backPressedCallback by lazy {
+        object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                toCoinSearch()
+            }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -86,7 +100,7 @@ class SearchResultFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.toolbarSearchResult.buttonToolbarNavigation.setOnClickListener {
-            findNavController().navigate(R.id.action_searchResultFragment_to_coinSearchFragment)
+            toCoinSearch()
         }
         with(args.condition) {
             binding.textviewSearchResultCondition.text =
@@ -114,6 +128,25 @@ class SearchResultFragment : Fragment() {
         initRecyclerView()
         initCollector()
         initService()
+        requireActivity().onBackPressedDispatcher.addCallback(backPressedCallback)
+    }
+
+    private fun toCoinSearch() {
+        System.currentTimeMillis().let { currentTime ->
+            if (isBound && currentTime > backPressedTime + AlarmListFragment.FINISH_TIME_OUT) {
+                AnimationUtils.loadAnimation(requireContext(), R.anim.animation_shake).let {
+                    binding.constraintlayoutSearchResult.startAnimation(it)
+                }
+                backPressedTime = currentTime
+                Toast.makeText(
+                    requireContext(),
+                    "한 번 더 누르면 검색이 종료 됩니다.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                findNavController().navigate(R.id.action_searchResultFragment_to_coinSearchFragment)
+            }
+        }
     }
 
     private fun initCollector() {
@@ -144,12 +177,13 @@ class SearchResultFragment : Fragment() {
 
     private fun getCoinList() {
         lifecycleScope.launch {
-            coinList.collect {
+            coinList.first {
                 it.sorted().let { sortedList ->
                     viewModel.setTotalCount(sortedList.size)
                     // 하나씩 검사 시작
                     searchResultService.getStarted(sortedList)
                 }
+                true
             }
         }
     }
@@ -168,10 +202,15 @@ class SearchResultFragment : Fragment() {
         }
     }
 
+    private fun removeService() {
+        requireActivity().unbindService(connection)
+        backPressedCallback.remove()
+        isBound = false
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
-        requireActivity().unbindService(connection)
-        isBound = false
+        removeService()
         _binding = null
     }
 }
