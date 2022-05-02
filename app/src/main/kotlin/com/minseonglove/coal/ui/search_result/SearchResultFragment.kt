@@ -216,7 +216,7 @@ class SearchResultFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        if(isBound) {
+        if (isBound) {
             removeService()
         }
         _binding = null
