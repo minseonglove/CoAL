@@ -166,6 +166,9 @@ class SearchResultFragment : Fragment() {
                         viewModel.totalCount.value,
                         it
                     )
+                    if (it == viewModel.totalCount.value) {
+                        removeService()
+                    }
                 }
             }
         }
@@ -213,7 +216,9 @@ class SearchResultFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        removeService()
+        if(isBound) {
+            removeService()
+        }
         _binding = null
     }
 }
