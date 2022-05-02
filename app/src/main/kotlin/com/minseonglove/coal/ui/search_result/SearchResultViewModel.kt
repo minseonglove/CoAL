@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class SearchResultViewModel : ViewModel() {
 
-    private val _totalCount = MutableStateFlow(0)
+    private val _totalCount = MutableStateFlow(1)
     private val _searchCount = MutableStateFlow(0)
     private val _searchList = MutableStateFlow<List<String>>(listOf())
 

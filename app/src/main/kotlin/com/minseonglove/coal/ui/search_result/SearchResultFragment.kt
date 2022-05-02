@@ -29,7 +29,6 @@ import com.minseonglove.coal.databinding.FragmentSearchResultBinding
 import com.minseonglove.coal.db.MyAlarm
 import com.minseonglove.coal.service.SearchResultService
 import com.minseonglove.coal.ui.coin_select.CoinListAdapter
-import com.orhanobut.logger.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
@@ -121,7 +120,6 @@ class SearchResultFragment : Fragment() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.searchList.collectLatest {
-                    Logger.i(it.toString())
                     searchResultAdapter.submitList(it)
                 }
             }
@@ -129,8 +127,9 @@ class SearchResultFragment : Fragment() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.searchCount.collectLatest {
+                    val progress = (it / viewModel.totalCount.value.toDouble() * 100).toInt()
                     binding.textviewSearchResultProgress.text =
-                        "${viewModel.totalCount.value} / $it"
+                        "$progress% (${viewModel.totalCount.value} / $it)"
                 }
             }
         }
