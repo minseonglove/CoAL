@@ -1,7 +1,6 @@
 package com.minseonglove.coal.ui.alarm_list
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +16,7 @@ import com.minseonglove.coal.R
 import com.minseonglove.coal.databinding.FragmentAlarmListBinding
 import com.minseonglove.coal.db.MyAlarm
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -67,13 +67,8 @@ class AlarmListFragment : Fragment() {
     private fun collectAlarmList() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getAlarmList.collect {
+                viewModel.getAlarmList.collectLatest {
                     updateRecyclerView(it)
-                    if (it.isNotEmpty()) {
-                        it.forEach { alarm ->
-                            Log.d("coin", alarm.toString())
-                        }
-                    }
                 }
             }
         }

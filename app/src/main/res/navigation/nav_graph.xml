@@ -70,7 +70,10 @@
         <action
             android:id="@+id/action_searchResultFragment_to_coinSearchFragment"
             app:destination="@id/coinSearchFragment"
-            app:enterAnim="@anim/animation_fragment_fadein"
-            app:exitAnim="@anim/animation_fragment_fadeout" />
+            app:popUpTo="@id/searchResultFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="condition"
+            app:argType="com.minseonglove.coal.ui.coin_search.CoinSearchDto" />
     </fragment>
 </navigation>

@@ -29,7 +29,7 @@ import java.io.IOException
 
 class CoinSelectFragment : Fragment() {
 
-    private lateinit var coinSelectAdapter: CoinSelectAdapter
+    private lateinit var coinSelectAdapter: CoinListAdapter
 
     private var _binding: FragmentCoinSelectBinding? = null
 
@@ -78,7 +78,6 @@ class CoinSelectFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.toolbarCoinselect.buttonToolbarNavigation.setOnClickListener {
             findNavController().navigate(R.id.action_coinSelectFragment_to_alarmSettingFragment)
         }
@@ -109,7 +108,7 @@ class CoinSelectFragment : Fragment() {
     }
 
     private fun initRecyclerView(list: List<String>) {
-        coinSelectAdapter = CoinSelectAdapter { coinName ->
+        coinSelectAdapter = CoinListAdapter { coinName ->
             saveSelectedCoin(coinName)
         }.apply {
             submitList(list)

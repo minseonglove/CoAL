@@ -16,7 +16,7 @@
         android:background="@drawable/coin_select_background">
 
         <include
-            android:id="@+id/toolbar_search_result"
+            android:id="@+id/toolbar_coinselect"
             layout="@layout/include_toolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/edittext_coinselect_filter"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_search_result" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_coinselect" />
 
         <EditText
             android:id="@+id/edittext_coinselect_filter"
@@ -53,7 +53,7 @@
             android:afterTextChanged="@{() -> vm.filteringCoin()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textview_coinselect_filter"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_search_result"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_coinselect"
             tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <androidx.recyclerview.widget.RecyclerView

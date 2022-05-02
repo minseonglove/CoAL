@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.SpinnerAdapter
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -17,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import com.minseonglove.coal.R
 import com.minseonglove.coal.databinding.FragmentCoinSearchBinding
 import com.minseonglove.coal.ui.setting_condition.SettingConditionViewModel
+import com.minseonglove.coal.ui.setting_condition.SettingConditionViewModel.Companion.VALIDATION_OK
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -79,7 +81,7 @@ class CoinSearchFragment : Fragment() {
             findNavController().navigate(R.id.action_coinSearchFragment_to_alarmListFragment)
         }
         binding.bottomButtonCoinsearch.buttonBottomAction.setOnClickListener {
-            findNavController().navigate(R.id.action_coinSearchFragment_to_searchResultFragment)
+            toSearchResultFragment()
         }
         requireActivity().onBackPressedDispatcher.addCallback(
             backPressedCallback
@@ -104,6 +106,20 @@ class CoinSearchFragment : Fragment() {
 
     private fun createAdapter(items: Array<String>): SpinnerAdapter =
         ArrayAdapter(requireContext(), R.layout.spinner_item, items)
+
+    private fun toSearchResultFragment() {
+        val minuteItems = resources.getStringArray(R.array.minute_items)
+        val dto = viewModel.getCoinSearchDto(minuteItems[viewModel.minutePos.value].toInt())
+        CoinSearchFragmentDirections.actionCoinSearchFragmentToSearchResultFragment(dto).let {
+            viewModel.validateCondition().let { msg ->
+                if (msg == VALIDATION_OK) {
+                    findNavController().navigate(it)
+                } else {
+                    Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

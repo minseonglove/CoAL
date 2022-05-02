@@ -28,7 +28,7 @@ class AlarmListAdapter(
 ) : ListAdapter<MyAlarm, AlarmListAdapter.ViewHolder>(diffUtil) {
 
     inner class ViewHolder(
-        val binding: RecyclerAlarmListBinding
+        private val binding: RecyclerAlarmListBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MyAlarm) {
             with(binding) {
@@ -160,7 +160,7 @@ class AlarmListAdapter(
     companion object {
         val diffUtil = object : DiffUtil.ItemCallback<MyAlarm>() {
             override fun areItemsTheSame(oldItem: MyAlarm, newItem: MyAlarm) =
-                oldItem.id == newItem.id && oldItem.isRunning == newItem.isRunning
+                oldItem.id == newItem.id
 
             override fun areContentsTheSame(oldItem: MyAlarm, newItem: MyAlarm) =
                 oldItem.id == newItem.id && oldItem.isRunning == newItem.isRunning

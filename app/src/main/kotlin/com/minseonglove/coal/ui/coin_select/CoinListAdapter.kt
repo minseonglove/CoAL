@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.minseonglove.coal.R
 import com.minseonglove.coal.databinding.RecyclerCoinListBinding
 
-class CoinSelectAdapter(
+class CoinListAdapter(
     private val itemClick: (String) -> Unit
-) : ListAdapter<String, CoinSelectAdapter.ViewHolder>(diffUtil) {
+) : ListAdapter<String, CoinListAdapter.ViewHolder>(diffUtil) {
 
     inner class ViewHolder(
         val binding: RecyclerCoinListBinding

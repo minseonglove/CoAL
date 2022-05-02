@@ -1,5 +1,8 @@
 package com.minseonglove.coal.service
 
+import android.app.Service
+import android.content.Intent
+import android.os.Binder
 import com.minseonglove.coal.api.data.Constants.MACD
 import com.minseonglove.coal.api.data.Constants.MOVING_AVERAGE
 import com.minseonglove.coal.api.data.Constants.PRICE
@@ -8,64 +11,80 @@ import com.minseonglove.coal.api.data.Constants.STOCHASTIC
 import com.minseonglove.coal.api.data.Constants.makeMarketCode
 import com.minseonglove.coal.api.dto.CandleInfo
 import com.minseonglove.coal.api.repository.CheckCandleRepository
-import com.minseonglove.coal.db.MyAlarm
-import com.minseonglove.coal.service.CalcIndicatorUtil.getCandleCount
+import com.minseonglove.coal.ui.coin_search.CoinSearchDto
 import com.orhanobut.logger.Logger
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class WatchIndicatorRepository(
-    private val checkCandleRepo: CheckCandleRepository,
-    private val alarm: MyAlarm,
-    private val alarmNotify: () -> Unit,
-    private val updateRunningState: (Boolean, Int) -> Unit,
-) {
+@AndroidEntryPoint
+class SearchResultService : Service() {
 
-    private val marketCode = makeMarketCode(alarm.coinName)
-    private val signalArray = Array(101) { 0.0 }
+    @Inject
+    lateinit var checkCandleRepo: CheckCandleRepository
+    private lateinit var condition: CoinSearchDto
+    private lateinit var signalArray: Array<Double>
+    private lateinit var mCallback: ICallBack
 
-    private val candleList = MutableSharedFlow<List<CandleInfo>>()
-    private val watchIndicatorScope = CoroutineScope(Dispatchers.Default).launch {
-        candleList.collect {
-            calcIndicator(it)
-        }
+    private val binder = SearchResultBinder()
+    private val resultList = mutableListOf<String>()
+
+    private var currentCoin: String = ""
+
+    inner class SearchResultBinder : Binder() {
+        fun getService(): SearchResultService = this@SearchResultService
     }
-    private lateinit var calcIndicatorScope: Job
 
-    private var isRunning = true
-    private var isFirstCandle = true
-    private var currentTime = ""
+    interface ICallBack {
+        fun updateCount(count: Int)
+        fun updateList(list: List<String>)
+    }
 
-    fun getCandles() {
-        calcIndicatorScope = CoroutineScope(Dispatchers.IO).launch {
-            while (isRunning) {
-                val candles = getCandleCount(
-                    alarm.indicator,
-                    alarm.candle,
-                    isFirstCandle,
-                    alarm.stochasticK,
-                    alarm.stochasticD
+    override fun onBind(intent: Intent?): Binder {
+        condition = intent!!.getParcelableExtra("condition")!!
+        return binder
+    }
+
+    fun registerCallback(callback: ICallBack) {
+        mCallback = callback
+    }
+
+    fun getStarted(coinList: List<String>) {
+        Logger.i("bound service 시작")
+        val isSignal = condition.signalCondition != 0
+        signalArray = if (isSignal) Array(101) { 0.0 } else Array(1) { 0.0 }
+        CoroutineScope(Dispatchers.IO).launch {
+            for (i in coinList.indices) {
+                mCallback.updateCount(i+1)
+                currentCoin = coinList[i]
+                val candles = CalcIndicatorUtil.getCandleCount(
+                    condition.indicator,
+                    condition.candle,
+                    isSignal,
+                    condition.stochasticK,
+                    condition.stochasticD
                 )
-                isFirstCandle = false
-                checkCandleRepo.checkCandle(alarm.minute, marketCode, candles).let {
+                checkCandleRepo.checkCandle(
+                    condition.minute,
+                    makeMarketCode(coinList[i]),
+                    candles
+                ).let {
                     if (it.isSuccessful) {
-                        validateTime(it.body()!![0].dateTime)
-                        candleList.emit(it.body()!!)
+                        calcIndicator(it.body()!!)
                     } else {
                         Logger.e(it.errorBody().toString())
                     }
                 }
-                delay(3000)
+                delay(SLEEP_TIME)
             }
         }
     }
 
     private fun calcIndicator(list: List<CandleInfo>) {
-        with(alarm) {
+        with(condition) {
             when (indicator) {
                 PRICE -> validatePrice(list[0].tradePrice, value!!, valueCondition)
                 MOVING_AVERAGE -> validateMovingAverage(list, list[0].tradePrice, valueCondition)
@@ -101,17 +120,9 @@ class WatchIndicatorRepository(
         }
     }
 
-    // 다음 캔들로 넘어갔는지 검사
-    private fun validateTime(time: String) {
-        if (currentTime != time) {
-            currentTime = time
-            isFirstCandle = true
-        }
-    }
-
     private fun validatePrice(price: Double, value: Double, valueCondition: Int) {
         if (CalcIndicatorUtil.validatePrice(price, value, valueCondition)) {
-            validationComplete()
+            addList()
         }
     }
 
@@ -121,7 +132,7 @@ class WatchIndicatorRepository(
         valueCondition: Int
     ) {
         if (CalcIndicatorUtil.validateMovingAverage(list, tradePrice, valueCondition)) {
-            validationComplete()
+            addList()
         }
     }
 
@@ -144,7 +155,7 @@ class WatchIndicatorRepository(
                 signalCondition
             )
         ) {
-            validationComplete()
+            addList()
         }
     }
 
@@ -167,7 +178,7 @@ class WatchIndicatorRepository(
                 signalCondition
             )
         ) {
-            validationComplete()
+            addList()
         }
     }
 
@@ -192,19 +203,16 @@ class WatchIndicatorRepository(
                 signalCondition
             )
         ) {
-            validationComplete()
+            addList()
         }
     }
 
-    private fun validationComplete() {
-        updateRunningState(false, alarm.id)
-        isRunning = false
-        alarmNotify()
-        cancelCollect()
+    private fun addList() {
+        resultList.add(currentCoin)
+        mCallback.updateList(resultList.toList())
     }
 
-    fun cancelCollect() {
-        watchIndicatorScope.cancel()
-        calcIndicatorScope.cancel()
+    companion object {
+        const val SLEEP_TIME = 100L
     }
 }

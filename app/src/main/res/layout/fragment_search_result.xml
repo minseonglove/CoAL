@@ -24,7 +24,7 @@
             android:id="@+id/textview_search_result_condition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:textColor="@color/main_font_color"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -37,24 +37,23 @@
             android:id="@+id/textview_search_result_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
+            android:text="@string/search_result_toolbar_progress"
             android:textColor="#4E4E4E"
             android:textSize="12sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/recycler_search_result"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textview_search_result_condition"
-            tools:text="@string/search_result_toolbar_progress" />
+            app:layout_constraintTop_toBottomOf="@+id/textview_search_result_condition" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_search_result"
-            android:layout_width="409dp"
-            android:layout_height="620dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textview_search_result_progress" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

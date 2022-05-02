@@ -8,6 +8,7 @@ import com.minseonglove.coal.api.data.Constants.PRICE
 import com.minseonglove.coal.api.data.Constants.RSI
 import com.minseonglove.coal.api.data.Constants.STOCHASTIC
 import com.minseonglove.coal.db.MyAlarm
+import com.minseonglove.coal.ui.coin_search.CoinSearchDto
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -156,6 +157,20 @@ class SettingConditionViewModel : ViewModel() {
         }
         return VALIDATION_OK
     }
+
+    fun getCoinSearchDto(minute: Int) =
+        CoinSearchDto(
+            minute,
+            indicator.value,
+            candle.value?.toInt(),
+            stochasticK.value?.toInt(),
+            stochasticD.value?.toInt(),
+            macdM.value?.toInt(),
+            limitValue.value?.toDouble(),
+            valueCondition.value,
+            signal.value?.toInt(),
+            signalCondition.value,
+        )
 
     companion object {
         const val VALIDATION_OK = "success"

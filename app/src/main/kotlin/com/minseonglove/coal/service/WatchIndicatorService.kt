@@ -14,7 +14,6 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
 import android.os.IBinder
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.minseonglove.coal.R
@@ -23,6 +22,7 @@ import com.minseonglove.coal.api.data.Constants.makeConditionString
 import com.minseonglove.coal.api.repository.CheckCandleRepository
 import com.minseonglove.coal.db.MyAlarm
 import com.minseonglove.coal.db.MyAlarmRepository
+import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -62,6 +62,7 @@ class WatchIndicatorService : Service() {
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE)
             as NotificationManager
+        @SuppressLint("UnspecifiedImmutableFlag")
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -70,7 +71,6 @@ class WatchIndicatorService : Service() {
 
         coroutineScope = CoroutineScope(Dispatchers.IO).launch {
             alarmRepo.getAll().collectLatest { myAlarmList ->
-                Log.d("coin", "변경 감지")
                 initRunningAlarm()
                 myAlarmList.forEach { myAlarm ->
                     if (myAlarm.isRunning) {
@@ -102,7 +102,7 @@ class WatchIndicatorService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d("coin", "Service Destroy")
+        Logger.i("Service Destroy")
         service = null
         if (::coroutineScope.isInitialized) {
             coroutineScope.cancel()
