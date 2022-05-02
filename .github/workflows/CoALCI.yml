@@ -44,7 +44,7 @@ jobs:
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:C:\Users\qnfpd\CoAL
+        with:
           tag_name: Release
           release_name: CoAL 1.0.0
       - name: Upload Release APK
