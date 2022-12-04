@@ -1,4 +1,7 @@
 # CoAL - 업비트 상장 코인 보조지표 감시 안드로이드 앱
+<div align=center>
+  <img src="https://user-images.githubusercontent.com/90435036/205493130-1b740229-2280-4565-aa0c-51004957104e.jpg">
+</div>
 
 # 📚 STACKS
 <div align=center>
