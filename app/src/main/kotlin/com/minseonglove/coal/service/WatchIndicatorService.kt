@@ -57,8 +57,7 @@ class WatchIndicatorService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        service = intent
-
+        isRunning = true
         largeIcon = BitmapFactory.decodeResource(resources, R.drawable.logo_round)
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE)
@@ -105,7 +104,7 @@ class WatchIndicatorService : Service() {
     override fun onDestroy() {
         super.onDestroy()
         Logger.i("Service Destroy")
-        service = null
+        isRunning = false
         if (::coroutineScope.isInitialized) {
             coroutineScope.cancel()
         }
@@ -183,7 +182,8 @@ class WatchIndicatorService : Service() {
     companion object {
         private const val CHANNEL_ID = "channel_id"
         private const val CHANNEL_NAME = "channel_name"
-        var service: Intent? = null
-        var normalExit: Boolean = false
+        private var normalExit: Boolean = false
+        var isRunning = false
+            private set
     }
 }

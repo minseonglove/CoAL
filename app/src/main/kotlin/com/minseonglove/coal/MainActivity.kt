@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startWatchService() {
-        if (WatchIndicatorService.service == null) {
+        if (WatchIndicatorService.isRunning.not()) {
             startService(Intent(this, WatchIndicatorService::class.java))
         }
     }
