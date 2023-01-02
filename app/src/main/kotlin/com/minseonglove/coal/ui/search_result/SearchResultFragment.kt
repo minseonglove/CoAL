@@ -127,6 +127,7 @@ class SearchResultFragment : Fragment() {
         initRecyclerView()
         initCollector()
         initService()
+
         requireActivity().onBackPressedDispatcher.addCallback(backPressedCallback)
     }
 
