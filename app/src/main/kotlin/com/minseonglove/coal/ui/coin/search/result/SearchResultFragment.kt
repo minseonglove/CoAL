@@ -31,7 +31,6 @@ import com.minseonglove.coal.api.data.Constants.makeConditionString
 import com.minseonglove.coal.databinding.FragmentSearchResultBinding
 import com.minseonglove.coal.db.MyAlarm
 import com.minseonglove.coal.service.SearchResultService
-import com.minseonglove.coal.ui.alarm.list.AlarmListFragment
 import com.minseonglove.coal.ui.coin.select.CoinListAdapter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -133,7 +132,7 @@ class SearchResultFragment : Fragment() {
 
     private fun toCoinSearch() {
         System.currentTimeMillis().let { currentTime ->
-            if (isBound && currentTime > backPressedTime + AlarmListFragment.FINISH_TIME_OUT) {
+            if (isBound && currentTime > backPressedTime + FINISH_TIME_OUT) {
                 AnimationUtils.loadAnimation(requireContext(), R.anim.animation_shake).let {
                     binding.constraintlayoutSearchResult.startAnimation(it)
                 }
@@ -221,5 +220,9 @@ class SearchResultFragment : Fragment() {
             removeService()
         }
         _binding = null
+    }
+
+    companion object {
+        private const val FINISH_TIME_OUT = 2500
     }
 }

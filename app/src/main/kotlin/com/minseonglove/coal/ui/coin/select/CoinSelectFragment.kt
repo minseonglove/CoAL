@@ -1,16 +1,12 @@
 package com.minseonglove.coal.ui.coin.select
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.LinearLayout.VERTICAL
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -20,6 +16,7 @@ import com.minseonglove.coal.R
 import com.minseonglove.coal.api.data.Constants
 import com.minseonglove.coal.api.data.Constants.datastore
 import com.minseonglove.coal.databinding.FragmentCoinSelectBinding
+import com.minseonglove.coal.ui.base.BaseFragment
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
@@ -27,13 +24,14 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-class CoinSelectFragment : Fragment() {
+class CoinSelectFragment : BaseFragment<FragmentCoinSelectBinding>(
+    R.layout.fragment_coin_select
+) {
 
-    private lateinit var coinSelectAdapter: CoinListAdapter
+    private val coinSelectAdapter: CoinListAdapter by lazy {
+        CoinListAdapter { coinName -> saveSelectedCoin(coinName) }
+    }
 
-    private var _binding: FragmentCoinSelectBinding? = null
-
-    private val binding get() = _binding!!
     private val viewModel: CoinSelectViewModel by viewModels()
 
     private val backPressedCallback by lazy {
@@ -58,26 +56,9 @@ class CoinSelectFragment : Fragment() {
             }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_coin_select,
-            container,
-            false
-        )
-        return binding.run {
-            vm = viewModel
-            lifecycleOwner = viewLifecycleOwner
-            root
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.vm = viewModel
         binding.toolbarCoinselect.buttonToolbarNavigation.setOnClickListener {
             findNavController().navigate(R.id.action_coinSelectFragment_to_alarmSettingFragment)
         }
@@ -108,11 +89,6 @@ class CoinSelectFragment : Fragment() {
     }
 
     private fun initRecyclerView(list: List<String>) {
-        coinSelectAdapter = CoinListAdapter { coinName ->
-            saveSelectedCoin(coinName)
-        }.apply {
-            submitList(list)
-        }
         val divider = DividerItemDecoration(requireContext(), VERTICAL).apply {
             setDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.divider_coin_list)!!)
         }
@@ -121,6 +97,7 @@ class CoinSelectFragment : Fragment() {
             addItemDecoration(divider)
             adapter = coinSelectAdapter
         }
+        coinSelectAdapter.submitList(list)
     }
 
     private fun saveSelectedCoin(coinName: String) {
@@ -135,6 +112,5 @@ class CoinSelectFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         backPressedCallback.remove()
-        _binding = null
     }
 }

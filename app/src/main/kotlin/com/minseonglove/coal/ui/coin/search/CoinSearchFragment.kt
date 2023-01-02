@@ -1,15 +1,11 @@
 package com.minseonglove.coal.ui.coin.search
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.SpinnerAdapter
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -19,14 +15,14 @@ import com.minseonglove.coal.R
 import com.minseonglove.coal.databinding.FragmentCoinSearchBinding
 import com.minseonglove.coal.ui.alarm.setting.SettingConditionViewModel
 import com.minseonglove.coal.ui.alarm.setting.SettingConditionViewModel.Companion.VALIDATION_OK
+import com.minseonglove.coal.ui.base.BaseFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class CoinSearchFragment : Fragment() {
+class CoinSearchFragment : BaseFragment<FragmentCoinSearchBinding>(
+    R.layout.fragment_coin_search
+) {
 
-    private var _binding: FragmentCoinSearchBinding? = null
-
-    private val binding get() = _binding!!
     private val viewModel: SettingConditionViewModel by viewModels()
 
     private val backPressedCallback by lazy {
@@ -37,26 +33,9 @@ class CoinSearchFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_coin_search,
-            container,
-            false
-        )
-        return binding.run {
-            conditionViewModel = viewModel
-            lifecycleOwner = viewLifecycleOwner
-            root
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.vm = viewModel
         initListener()
         initSpinner()
         initCollector()
@@ -124,6 +103,5 @@ class CoinSearchFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         backPressedCallback.remove()
-        _binding = null
     }
 }

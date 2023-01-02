@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="conditionViewModel"
+            name="vm"
             type="com.minseonglove.coal.ui.alarm.setting.SettingConditionViewModel" />
     </data>
 
@@ -35,7 +35,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar_coinsearch"
             app:isAlarmSetting="@{false}"
-            app:conditionViewModel="@{conditionViewModel}"/>
+            app:conditionViewModel="@{vm}"/>
 
 
         <include

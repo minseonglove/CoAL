@@ -1,16 +1,12 @@
 package com.minseonglove.coal.ui.alarm.setting
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.SpinnerAdapter
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.databinding.DataBindingUtil
 import androidx.datastore.preferences.core.emptyPreferences
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -21,6 +17,7 @@ import com.minseonglove.coal.api.data.Constants
 import com.minseonglove.coal.api.data.Constants.datastore
 import com.minseonglove.coal.databinding.FragmentAlarmSettingBinding
 import com.minseonglove.coal.ui.alarm.setting.SettingConditionViewModel.Companion.VALIDATION_OK
+import com.minseonglove.coal.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -30,11 +27,10 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 
 @AndroidEntryPoint
-class AlarmSettingFragment : Fragment() {
+class AlarmSettingFragment : BaseFragment<FragmentAlarmSettingBinding>(
+    R.layout.fragment_alarm_setting
+) {
 
-    private var _binding: FragmentAlarmSettingBinding? = null
-
-    private val binding get() = _binding!!
     private val alarmSettingViewModel: AlarmSettingViewModel by viewModels()
     private val conditionViewModel: SettingConditionViewModel by viewModels()
 
@@ -60,33 +56,10 @@ class AlarmSettingFragment : Fragment() {
             }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_alarm_setting,
-            container,
-            false
-        )
-        return binding.run {
-            alarmSettingViewModel = this@AlarmSettingFragment.alarmSettingViewModel
-            conditionViewModel = this@AlarmSettingFragment.conditionViewModel
-            lifecycleOwner = viewLifecycleOwner
-            root
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.apply {
-            conditionViewModel = this@AlarmSettingFragment.conditionViewModel
-            alarmSettingViewModel = this@AlarmSettingFragment.alarmSettingViewModel
-            lifecycleOwner = viewLifecycleOwner
-        }
-
+        binding.conditionViewModel = conditionViewModel
+        binding.alarmSettingViewModel = alarmSettingViewModel
         initListener()
         initCoinName()
         initSpinner()
@@ -175,6 +148,5 @@ class AlarmSettingFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         backPressedCallback.remove()
-        _binding = null
     }
 }
