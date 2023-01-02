@@ -17,6 +17,7 @@ import com.minseonglove.coal.api.data.Constants
 import com.minseonglove.coal.api.data.Constants.datastore
 import com.minseonglove.coal.databinding.FragmentCoinSelectBinding
 import com.minseonglove.coal.ui.base.BaseFragment
+import com.minseonglove.coal.ui.util.repeatOnStarted
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
@@ -67,8 +68,7 @@ class CoinSelectFragment : BaseFragment<FragmentCoinSelectBinding>(
     }
 
     private fun initCollector() {
-        // 코인 목록 가져오기
-        lifecycleScope.launch {
+        repeatOnStarted(viewLifecycleOwner) {
             coinList.collect {
                 it.sorted().let { sortedList ->
                     viewModel.setOriginalList(sortedList)
@@ -76,13 +76,11 @@ class CoinSelectFragment : BaseFragment<FragmentCoinSelectBinding>(
                 }
             }
         }
-        // 코인 검색
-        lifecycleScope.launch {
+        repeatOnStarted(viewLifecycleOwner) {
             viewModel.searchedList.collectLatest {
                 coinSelectAdapter.submitList(it)
             }
         }
-
         requireActivity().onBackPressedDispatcher.addCallback(
             backPressedCallback
         )

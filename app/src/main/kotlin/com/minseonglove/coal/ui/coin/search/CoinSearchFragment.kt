@@ -7,17 +7,14 @@ import android.widget.SpinnerAdapter
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.minseonglove.coal.R
 import com.minseonglove.coal.databinding.FragmentCoinSearchBinding
 import com.minseonglove.coal.ui.alarm.setting.SettingConditionViewModel
 import com.minseonglove.coal.ui.alarm.setting.SettingConditionViewModel.Companion.VALIDATION_OK
 import com.minseonglove.coal.ui.base.BaseFragment
+import com.minseonglove.coal.ui.util.repeatOnStarted
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 class CoinSearchFragment : BaseFragment<FragmentCoinSearchBinding>(
     R.layout.fragment_coin_search
@@ -42,11 +39,9 @@ class CoinSearchFragment : BaseFragment<FragmentCoinSearchBinding>(
     }
 
     private fun initCollector() {
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.indicator.collectLatest {
-                    showSettingDisplay()
-                }
+        repeatOnStarted(viewLifecycleOwner) {
+            viewModel.indicator.collectLatest {
+                showSettingDisplay()
             }
         }
     }

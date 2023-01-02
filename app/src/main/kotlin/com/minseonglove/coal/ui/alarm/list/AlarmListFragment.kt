@@ -6,16 +6,13 @@ import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.minseonglove.coal.R
 import com.minseonglove.coal.databinding.FragmentAlarmListBinding
 import com.minseonglove.coal.ui.base.BaseFragment
+import com.minseonglove.coal.ui.util.repeatOnStarted
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AlarmListFragment : BaseFragment<FragmentAlarmListBinding>(
@@ -87,11 +84,9 @@ class AlarmListFragment : BaseFragment<FragmentAlarmListBinding>(
     }
 
     private fun collectAlarmList() {
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getAlarmList.collectLatest {
-                    alarmListAdapter.submitList(it)
-                }
+        repeatOnStarted(viewLifecycleOwner) {
+            viewModel.getAlarmList.collectLatest {
+                alarmListAdapter.submitList(it)
             }
         }
     }

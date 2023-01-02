@@ -17,9 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -32,6 +30,7 @@ import com.minseonglove.coal.databinding.FragmentSearchResultBinding
 import com.minseonglove.coal.db.MyAlarm
 import com.minseonglove.coal.service.SearchResultService
 import com.minseonglove.coal.ui.coin.select.CoinListAdapter
+import com.minseonglove.coal.ui.util.repeatOnStarted
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
@@ -149,26 +148,22 @@ class SearchResultFragment : Fragment() {
     }
 
     private fun initCollector() {
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.searchList.collectLatest {
-                    searchResultAdapter.submitList(it)
-                }
+        repeatOnStarted(viewLifecycleOwner) {
+            viewModel.searchList.collectLatest {
+                searchResultAdapter.submitList(it)
             }
         }
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.searchCount.collectLatest {
-                    val progress = (it / viewModel.totalCount.value.toDouble() * 100).toInt()
-                    binding.textviewSearchResultProgress.text = getString(
-                        R.string.search_result_toolbar_progress,
-                        progress,
-                        viewModel.totalCount.value,
-                        it
-                    )
-                    if (it == viewModel.totalCount.value) {
-                        removeService()
-                    }
+        repeatOnStarted(viewLifecycleOwner) {
+            viewModel.searchCount.collectLatest {
+                val progress = (it / viewModel.totalCount.value.toDouble() * 100).toInt()
+                binding.textviewSearchResultProgress.text = getString(
+                    R.string.search_result_toolbar_progress,
+                    progress,
+                    viewModel.totalCount.value,
+                    it
+                )
+                if (it == viewModel.totalCount.value) {
+                    removeService()
                 }
             }
         }

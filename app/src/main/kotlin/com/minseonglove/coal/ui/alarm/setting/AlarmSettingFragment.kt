@@ -8,9 +8,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.minseonglove.coal.R
 import com.minseonglove.coal.api.data.Constants
@@ -18,6 +16,7 @@ import com.minseonglove.coal.api.data.Constants.datastore
 import com.minseonglove.coal.databinding.FragmentAlarmSettingBinding
 import com.minseonglove.coal.ui.alarm.setting.SettingConditionViewModel.Companion.VALIDATION_OK
 import com.minseonglove.coal.ui.base.BaseFragment
+import com.minseonglove.coal.ui.util.repeatOnStarted
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -89,11 +88,9 @@ class AlarmSettingFragment : BaseFragment<FragmentAlarmSettingBinding>(
     }
 
     private fun initCollector() {
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                conditionViewModel.indicator.collectLatest {
-                    showSettingDisplay()
-                }
+        repeatOnStarted(viewLifecycleOwner) {
+            conditionViewModel.indicator.collectLatest {
+                showSettingDisplay()
             }
         }
     }
