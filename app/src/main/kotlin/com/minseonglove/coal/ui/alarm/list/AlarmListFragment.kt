@@ -1,4 +1,4 @@
-package com.minseonglove.coal.ui.alarm_list
+package com.minseonglove.coal.ui.alarm.list
 
 import android.os.Bundle
 import android.view.LayoutInflater

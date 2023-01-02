@@ -22,7 +22,7 @@ class WatchIndicatorRepository(
     private val checkCandleRepo: CheckCandleRepository,
     private val alarm: MyAlarm,
     private val alarmNotify: () -> Unit,
-    private val updateRunningState: (Boolean, Int) -> Unit,
+    private val updateRunningState: (Boolean, Int) -> Unit
 ) {
 
     private val marketCode = makeMarketCode(alarm.coinName)

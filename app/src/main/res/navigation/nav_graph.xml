@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/alarmListFragment"
-        android:name="com.minseonglove.coal.ui.alarm_list.AlarmListFragment"
+        android:name="com.minseonglove.coal.ui.alarm.list.AlarmListFragment"
         android:label="AlarmListFragment" >
         <action
             android:id="@+id/action_alarmListFragment_to_alarmSettingFragment"
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/coinSearchFragment"
-        android:name="com.minseonglove.coal.ui.coin_search.CoinSearchFragment"
+        android:name="com.minseonglove.coal.ui.coin.search.CoinSearchFragment"
         android:label="CoinSearchFragment" >
         <action
             android:id="@+id/action_coinSearchFragment_to_alarmListFragment"
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/alarmSettingFragment"
-        android:name="com.minseonglove.coal.ui.alarm_setting.AlarmSettingFragment"
+        android:name="com.minseonglove.coal.ui.alarm.setting.AlarmSettingFragment"
         android:label="AlarmSettingFragment" >
         <action
             android:id="@+id/action_alarmSettingFragment_to_coinSelectFragment"
@@ -53,7 +53,7 @@
     </fragment>
     <fragment
         android:id="@+id/coinSelectFragment"
-        android:name="com.minseonglove.coal.ui.coin_select.CoinSelectFragment"
+        android:name="com.minseonglove.coal.ui.coin.select.CoinSelectFragment"
         android:label="CoinSelectFragment" >
         <action
             android:id="@+id/action_coinSelectFragment_to_alarmSettingFragment"
@@ -65,7 +65,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchResultFragment"
-        android:name="com.minseonglove.coal.ui.search_result.SearchResultFragment"
+        android:name="com.minseonglove.coal.ui.coin.search.result.SearchResultFragment"
         android:label="SearchResultFragment" >
         <action
             android:id="@+id/action_searchResultFragment_to_coinSearchFragment"
@@ -74,6 +74,6 @@
             app:popUpToInclusive="true" />
         <argument
             android:name="condition"
-            app:argType="com.minseonglove.coal.ui.coin_search.CoinSearchDto" />
+            app:argType="com.minseonglove.coal.ui.coin.search.CoinSearchDto" />
     </fragment>
 </navigation>

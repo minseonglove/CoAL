@@ -1,4 +1,4 @@
-package com.minseonglove.coal.ui.search_result
+package com.minseonglove.coal.ui.coin.search.result
 
 import android.content.ComponentName
 import android.content.Context
@@ -31,8 +31,8 @@ import com.minseonglove.coal.api.data.Constants.makeConditionString
 import com.minseonglove.coal.databinding.FragmentSearchResultBinding
 import com.minseonglove.coal.db.MyAlarm
 import com.minseonglove.coal.service.SearchResultService
-import com.minseonglove.coal.ui.alarm_list.AlarmListFragment
-import com.minseonglove.coal.ui.coin_select.CoinListAdapter
+import com.minseonglove.coal.ui.alarm.list.AlarmListFragment
+import com.minseonglove.coal.ui.coin.select.CoinListAdapter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest

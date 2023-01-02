@@ -1,4 +1,4 @@
-package com.minseonglove.coal.ui.search_result
+package com.minseonglove.coal.ui.coin.search.result
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

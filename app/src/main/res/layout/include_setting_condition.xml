@@ -10,10 +10,10 @@
             type="Boolean" />
         <variable
             name="alarmSettingViewModel"
-            type="com.minseonglove.coal.ui.alarm_setting.AlarmSettingViewModel"/>
+            type="com.minseonglove.coal.ui.alarm.setting.AlarmSettingViewModel"/>
         <variable
             name="conditionViewModel"
-            type="com.minseonglove.coal.ui.setting_condition.SettingConditionViewModel" />
+            type="com.minseonglove.coal.ui.alarm.setting.SettingConditionViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

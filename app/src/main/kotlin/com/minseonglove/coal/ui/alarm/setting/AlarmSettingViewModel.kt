@@ -1,4 +1,4 @@
-package com.minseonglove.coal.ui.alarm_setting
+package com.minseonglove.coal.ui.alarm.setting
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

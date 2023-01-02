@@ -2,14 +2,14 @@
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.alarm_setting.AlarmSettingFragment">
+    tools:context=".ui.alarm.setting.AlarmSettingFragment">
     <data>
         <variable
             name="alarmSettingViewModel"
-            type="com.minseonglove.coal.ui.alarm_setting.AlarmSettingViewModel"/>
+            type="com.minseonglove.coal.ui.alarm.setting.AlarmSettingViewModel"/>
         <variable
             name="conditionViewModel"
-            type="com.minseonglove.coal.ui.setting_condition.SettingConditionViewModel" />
+            type="com.minseonglove.coal.ui.alarm.setting.SettingConditionViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

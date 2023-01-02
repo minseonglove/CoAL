@@ -1,4 +1,4 @@
-package com.minseonglove.coal.ui.setting_condition
+package com.minseonglove.coal.ui.alarm.setting
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,7 +8,7 @@ import com.minseonglove.coal.api.data.Constants.PRICE
 import com.minseonglove.coal.api.data.Constants.RSI
 import com.minseonglove.coal.api.data.Constants.STOCHASTIC
 import com.minseonglove.coal.db.MyAlarm
-import com.minseonglove.coal.ui.coin_search.CoinSearchDto
+import com.minseonglove.coal.ui.coin.search.CoinSearchDto
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -169,7 +169,7 @@ class SettingConditionViewModel : ViewModel() {
             limitValue.value?.toDouble(),
             valueCondition.value,
             signal.value?.toInt(),
-            signalCondition.value,
+            signalCondition.value
         )
 
     companion object {

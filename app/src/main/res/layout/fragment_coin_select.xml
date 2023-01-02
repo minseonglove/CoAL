@@ -2,12 +2,12 @@
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.coin_select.CoinSelectFragment">
+    tools:context=".ui.coin.select.CoinSelectFragment">
 
     <data>
         <variable
             name="vm"
-            type="com.minseonglove.coal.ui.coin_select.CoinSelectViewModel" />
+            type="com.minseonglove.coal.ui.coin.select.CoinSelectViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

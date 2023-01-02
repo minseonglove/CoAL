@@ -12,5 +12,5 @@ data class CandleInfo(
     @SerializedName("high_price")
     val highPrice: Double,
     @SerializedName("low_price")
-    val lowPrice: Double,
+    val lowPrice: Double
 )

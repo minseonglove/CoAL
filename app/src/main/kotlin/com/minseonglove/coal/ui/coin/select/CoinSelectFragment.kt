@@ -1,4 +1,4 @@
-package com.minseonglove.coal.ui.coin_select
+package com.minseonglove.coal.ui.coin.select
 
 import android.os.Bundle
 import android.view.LayoutInflater

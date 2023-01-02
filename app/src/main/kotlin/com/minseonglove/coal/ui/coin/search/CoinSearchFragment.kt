@@ -1,4 +1,4 @@
-package com.minseonglove.coal.ui.coin_search
+package com.minseonglove.coal.ui.coin.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,8 +17,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.minseonglove.coal.R
 import com.minseonglove.coal.databinding.FragmentCoinSearchBinding
-import com.minseonglove.coal.ui.setting_condition.SettingConditionViewModel
-import com.minseonglove.coal.ui.setting_condition.SettingConditionViewModel.Companion.VALIDATION_OK
+import com.minseonglove.coal.ui.alarm.setting.SettingConditionViewModel
+import com.minseonglove.coal.ui.alarm.setting.SettingConditionViewModel.Companion.VALIDATION_OK
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

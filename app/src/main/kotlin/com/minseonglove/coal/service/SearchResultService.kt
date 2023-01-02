@@ -11,7 +11,7 @@ import com.minseonglove.coal.api.data.Constants.STOCHASTIC
 import com.minseonglove.coal.api.data.Constants.makeMarketCode
 import com.minseonglove.coal.api.dto.CandleInfo
 import com.minseonglove.coal.api.repository.CheckCandleRepository
-import com.minseonglove.coal.ui.coin_search.CoinSearchDto
+import com.minseonglove.coal.ui.coin.search.CoinSearchDto
 import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope

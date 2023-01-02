@@ -38,6 +38,7 @@ class WatchIndicatorService : Service() {
 
     @Inject
     lateinit var checkCandleRepo: CheckCandleRepository
+
     @Inject
     lateinit var alarmRepo: MyAlarmRepository
 
@@ -62,6 +63,7 @@ class WatchIndicatorService : Service() {
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE)
             as NotificationManager
+
         @SuppressLint("UnspecifiedImmutableFlag")
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
 
@@ -128,6 +130,7 @@ class WatchIndicatorService : Service() {
             it.timeInMillis = System.currentTimeMillis()
             it.add(Calendar.SECOND, 1)
             val intent = Intent(this, AlarmReceiver::class.java)
+
             @SuppressLint("UnspecifiedImmutableFlag")
             val sender = PendingIntent.getBroadcast(this, 0, intent, 0)
             val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager

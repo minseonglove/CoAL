@@ -12,11 +12,11 @@ object CalcIndicatorUtil {
             .map { it.tradePrice }
             .reduce { total, next -> total + next } / candleList.size
     }
-    // RSI
+
     private fun calcRSI(
         candleList: List<CandleInfo>,
         n: Int,
-        startPos: Int,
+        startPos: Int
     ): Double {
         var ad = 0.0
         var au = 0.0
@@ -52,7 +52,7 @@ object CalcIndicatorUtil {
         }
         return au / (au + ad) * 100
     }
-    // RSI, MACD Signal
+
     private fun calcSignal(signalArray: Array<Double>, candle: Int): Double {
         var signal = signalArray[0]
         for (i in 1..100) {
@@ -60,8 +60,7 @@ object CalcIndicatorUtil {
         }
         return signal
     }
-    // Stochastic
-    // (스토치, 스토치 이평선)
+
     private fun calcStochastic(
         candleList: List<CandleInfo>,
         n: Int,
@@ -100,7 +99,7 @@ object CalcIndicatorUtil {
         }
         return Pair(stochastic, stochasticMA / d)
     }
-    // MACD
+
     private fun calcMACD(
         candleList: List<CandleInfo>,
         n: Int,
@@ -248,7 +247,7 @@ object CalcIndicatorUtil {
         }
         return false
     }
-    // 조건 검증
+
     private fun validateValue(
         resultValue: Double,
         settingValue: Double,

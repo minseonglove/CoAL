@@ -1,4 +1,4 @@
-package com.minseonglove.coal.ui.alarm_setting
+package com.minseonglove.coal.ui.alarm.setting
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,8 +20,7 @@ import com.minseonglove.coal.R
 import com.minseonglove.coal.api.data.Constants
 import com.minseonglove.coal.api.data.Constants.datastore
 import com.minseonglove.coal.databinding.FragmentAlarmSettingBinding
-import com.minseonglove.coal.ui.setting_condition.SettingConditionViewModel
-import com.minseonglove.coal.ui.setting_condition.SettingConditionViewModel.Companion.VALIDATION_OK
+import com.minseonglove.coal.ui.alarm.setting.SettingConditionViewModel.Companion.VALIDATION_OK
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

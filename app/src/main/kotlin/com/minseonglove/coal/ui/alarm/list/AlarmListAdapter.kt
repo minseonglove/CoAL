@@ -1,4 +1,4 @@
-package com.minseonglove.coal.ui.alarm_list
+package com.minseonglove.coal.ui.alarm.list
 
 import android.graphics.Color
 import android.graphics.LinearGradient
@@ -82,8 +82,13 @@ class AlarmListAdapter(
         // 텍스트 그라데이션
         private fun textGradient(text: TextView, startColor: String, endColor: String) =
             LinearGradient(
-                0f, 0f, 0f, text.lineHeight.toFloat(),
-                Color.parseColor(startColor), Color.parseColor(endColor), Shader.TileMode.REPEAT
+                0f,
+                0f,
+                0f,
+                text.lineHeight.toFloat(),
+                Color.parseColor(startColor),
+                Color.parseColor(endColor),
+                Shader.TileMode.REPEAT
             )
 
         // 애니메이션 로더

@@ -1,4 +1,4 @@
-package com.minseonglove.coal.ui.coin_search
+package com.minseonglove.coal.ui.coin.search
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -14,5 +14,5 @@ data class CoinSearchDto(
     val value: Double?,
     val valueCondition: Int,
     val signal: Int?,
-    val signalCondition: Int,
+    val signalCondition: Int
 ) : Parcelable
