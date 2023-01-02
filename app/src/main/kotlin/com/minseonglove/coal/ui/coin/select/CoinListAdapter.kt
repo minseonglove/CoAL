@@ -23,19 +23,19 @@ class CoinListAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, type: Int): ViewHolder {
-        val view = LayoutInflater
-            .from(parent.context)
-            .inflate(R.layout.recycler_coin_list, parent, false)
-        return ViewHolder(RecyclerCoinListBinding.bind(view))
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, type: Int) =
+        ViewHolder(
+            RecyclerCoinListBinding.bind(
+                LayoutInflater.from(parent.context).inflate(R.layout.recycler_coin_list, parent, false)
+            )
+        )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<String>() {
+        private val diffUtil = object : DiffUtil.ItemCallback<String>() {
             override fun areItemsTheSame(oldItem: String, newItem: String) = oldItem == newItem
 
             override fun areContentsTheSame(oldItem: String, newItem: String) = oldItem == newItem
