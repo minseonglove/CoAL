@@ -3,6 +3,7 @@ package com.minseonglove.coal.service
 import android.app.Service
 import android.content.Intent
 import android.os.Binder
+import android.os.Build
 import com.minseonglove.coal.api.data.Constants.MACD
 import com.minseonglove.coal.api.data.Constants.MOVING_AVERAGE
 import com.minseonglove.coal.api.data.Constants.PRICE
@@ -46,7 +47,14 @@ class SearchResultService : Service() {
     }
 
     override fun onBind(intent: Intent?): Binder {
-        condition = intent!!.getParcelableExtra("condition")!!
+        intent?.let {
+            condition = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                it.getParcelableExtra("condition", CoinSearchDto::class.java)!!
+            } else {
+                @Suppress("DEPRECATION")
+                it.getParcelableExtra("condition")!!
+            }
+        }
         return binder
     }
 
@@ -55,7 +63,6 @@ class SearchResultService : Service() {
     }
 
     fun getStarted(coinList: List<String>) {
-        Logger.i("bound service 시작")
         val isSignal = condition.signalCondition != 0
         signalArray = if (isSignal) Array(101) { 0.0 } else Array(1) { 0.0 }
         searchJob = CoroutineScope(Dispatchers.IO).launch {

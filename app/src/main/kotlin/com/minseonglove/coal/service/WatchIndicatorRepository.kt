@@ -53,8 +53,9 @@ class WatchIndicatorRepository(
                 isFirstCandle = false
                 checkCandleRepo.checkCandle(alarm.minute, marketCode, candles).let {
                     if (it.isSuccessful) {
-                        validateTime(it.body()!![0].dateTime)
-                        candleList.emit(it.body()!!)
+                        val candleInfo = it.body() ?: return@let
+                        validateTime(candleInfo[0].dateTime)
+                        candleList.emit(candleInfo)
                     } else {
                         Logger.e(it.errorBody().toString())
                     }

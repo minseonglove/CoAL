@@ -127,8 +127,8 @@ object CalcIndicatorUtil {
     ): Int =
         when (indicator) {
             Constants.PRICE -> 1
-            Constants.MOVING_AVERAGE -> candle!!
-            Constants.STOCHASTIC -> candle!! + stochasticK!! + stochasticD!! - 2
+            Constants.MOVING_AVERAGE -> candle ?: 0
+            Constants.STOCHASTIC -> (candle ?: 0) + (stochasticK ?: 0) + (stochasticD ?: 0) - 2
             Constants.RSI, Constants.MACD -> { if (isFirstCandle) 200 else 100 }
             else -> 1
         }

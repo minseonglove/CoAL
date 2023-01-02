@@ -132,7 +132,7 @@ class AlarmSettingFragment : BaseFragment<FragmentAlarmSettingBinding>(
         ArrayAdapter(requireContext(), R.layout.spinner_item, items)
 
     private fun validateCondition() {
-        binding.conditionViewModel!!.validateCondition().let {
+        binding.conditionViewModel.validateCondition().let {
             if (it == VALIDATION_OK) {
                 addAlarm()
                 findNavController().navigate(R.id.action_alarmSettingFragment_to_alarmListFragment)
