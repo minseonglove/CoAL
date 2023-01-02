@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.minseonglove.coal.R
 import com.minseonglove.coal.api.data.Constants
 import com.minseonglove.coal.api.data.Constants.datastore
@@ -91,7 +90,6 @@ class CoinSelectFragment : BaseFragment<FragmentCoinSelectBinding>(
             setDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.divider_coin_list)!!)
         }
         binding.recyclerCoinselect.apply {
-            layoutManager = LinearLayoutManager(activity)
             addItemDecoration(divider)
             adapter = coinSelectAdapter
         }
