@@ -13,7 +13,7 @@ import com.minseonglove.coal.service.CalcIndicatorUtil.getCandleCount
 import com.orhanobut.logger.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
@@ -29,19 +29,21 @@ class WatchIndicatorRepository(
     private val signalArray = Array(101) { 0.0 }
 
     private val candleList = MutableSharedFlow<List<CandleInfo>>()
-    private val watchIndicatorScope = CoroutineScope(Dispatchers.Default).launch {
-        candleList.collect {
-            calcIndicator(it)
-        }
-    }
-    private lateinit var calcIndicatorScope: Job
 
     private var isRunning = true
     private var isFirstCandle = true
     private var currentTime = ""
+    private var job = SupervisorJob()
 
     fun getCandles() {
-        calcIndicatorScope = CoroutineScope(Dispatchers.IO).launch {
+        job.cancel()
+        job = SupervisorJob()
+        CoroutineScope(Dispatchers.Default + job).launch {
+            candleList.collect {
+                calcIndicator(it)
+            }
+        }
+        CoroutineScope(Dispatchers.IO + job).launch {
             while (isRunning) {
                 val candles = getCandleCount(
                     alarm.indicator,
@@ -205,7 +207,6 @@ class WatchIndicatorRepository(
     }
 
     fun cancelCollect() {
-        watchIndicatorScope.cancel()
-        calcIndicatorScope.cancel()
+        job.cancel()
     }
 }

@@ -17,7 +17,7 @@ import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,11 +30,11 @@ class SearchResultService : Service() {
     private lateinit var condition: CoinSearchDto
     private lateinit var signalArray: Array<Double>
     private lateinit var mCallback: ICallBack
-    private lateinit var searchJob: Job
 
     private val binder = SearchResultBinder()
     private val resultList = mutableListOf<String>()
 
+    private var job = SupervisorJob()
     private var currentCoin: String = ""
 
     inner class SearchResultBinder : Binder() {
@@ -47,6 +47,7 @@ class SearchResultService : Service() {
     }
 
     override fun onBind(intent: Intent?): Binder {
+        job = SupervisorJob()
         intent?.let {
             condition = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 it.getParcelableExtra("condition", CoinSearchDto::class.java)!!
@@ -65,7 +66,7 @@ class SearchResultService : Service() {
     fun getStarted(coinList: List<String>) {
         val isSignal = condition.signalCondition != 0
         signalArray = if (isSignal) Array(101) { 0.0 } else Array(1) { 0.0 }
-        searchJob = CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.IO + job).launch {
             for (i in coinList.indices) {
                 mCallback.updateCount(i + 1)
                 currentCoin = coinList[i]
@@ -222,7 +223,7 @@ class SearchResultService : Service() {
     }
 
     override fun onUnbind(intent: Intent?): Boolean {
-        searchJob.cancel()
+        job.cancel()
         return super.onUnbind(intent)
     }
 
