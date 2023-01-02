@@ -9,7 +9,6 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
@@ -26,7 +25,7 @@ import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.util.Calendar
@@ -44,8 +43,10 @@ class WatchIndicatorService : Service() {
 
     private val runningAlarm = mutableListOf<WatchIndicatorRepository>()
 
-    private lateinit var coroutineScope: Job
-    private lateinit var largeIcon: Bitmap
+    private var job = SupervisorJob()
+    private val largeIcon by lazy {
+        BitmapFactory.decodeResource(resources, R.drawable.logo_round)
+    }
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -57,8 +58,8 @@ class WatchIndicatorService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        job = SupervisorJob()
         isRunning = true
-        largeIcon = BitmapFactory.decodeResource(resources, R.drawable.logo_round)
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE)
             as NotificationManager
@@ -70,7 +71,7 @@ class WatchIndicatorService : Service() {
             createNotificationChannel(notificationManager)
         }
 
-        coroutineScope = CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.IO + job).launch {
             alarmRepo.getAll().collectLatest { myAlarmList ->
                 initRunningAlarm()
                 myAlarmList.forEach { myAlarm ->
@@ -105,9 +106,7 @@ class WatchIndicatorService : Service() {
         super.onDestroy()
         Logger.i("Service Destroy")
         isRunning = false
-        if (::coroutineScope.isInitialized) {
-            coroutineScope.cancel()
-        }
+        job.cancel()
         initRunningAlarm()
         if (!normalExit) {
             setAlarmTimer()
@@ -159,7 +158,7 @@ class WatchIndicatorService : Service() {
     }
 
     private fun updateRunning(state: Boolean, id: Int) {
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.IO + job).launch {
             alarmRepo.updateRunning(state, id)
         }
     }
